@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Version="3" ApproxVals="18" Server="127.0.0.1,13001" Database="" AuthenticationType="SqlPassword" User="sa" password="MY6APcsQZbe07BPgpMG74w==">
+  <Options>
+    <Option uri="http://sqldoc/project/selections/databases/user/[Midterm]/include/" value="True" />
+    <Option uri="http://sqldoc/project/selections/databases/user/[MidtermDatabase]/include/" value="True" />
+    <Option uri="http://sqldoc/project/description/" value="" />
+    <Option uri="http://sqldoc/project/outputstyle/selected/" value="Pdf" />
+    <Option uri="http://sqldoc/project/name/" value="127.0.0.1,13001 Documentation" />
+    <Option uri="http://sqldoc/project/outputname/" value="AdrianNoa-Midterm-Documentation" />
+    <Option uri="http://sqldoc/project/cover/include/" value="True" />
+    <Option uri="http://sqldoc/project/server_alias/" value="" />
+    <Option uri="http://sqldoc/project/outputpath/" value="C:\Users\StudentCSCI381Erwin\Desktop" />
+    <Option uri="http://sqldoc/project/outputname/addtimestamp/" value="True" />
+    <Option uri="http://sqldoc/project/footer/date/format/" value="dddd, MMMM d, yyyy h:mm:ss tt" />
+    <Option uri="http://sqldoc/project/header/breadcrumbs/include/" value="True" />
+    <Option uri="http://sqldoc/project/header/text/" value="" />
+    <Option uri="http://sqldoc/project/footer/copyright/text/" value="Copyright 2022 - All Rights Reserved" />
+    <Option uri="http://sqldoc/project/author/" value="StudentCSCI381Erwin" />
+    <Option uri="http://sqldoc/project/outputstyle/word/pagesize" value="Letter" />
+    <Option uri="http://sqldoc/project/toc/populate/" value="True" />
+    <Option uri="http://sqldoc/project/logo/" value="" />
+  </Options>
+</Project>
