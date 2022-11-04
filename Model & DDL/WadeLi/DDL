@@ -1,0 +1,2622 @@
+
+CREATE TYPE [dAddress]
+	FROM NVARCHAR(60) NULL
+go
+
+CREATE TYPE [dBlobDefinition]
+	FROM VARBINARY NULL
+go
+
+CREATE TYPE [dCategoryName]
+	FROM NVARCHAR(15) NULL
+go
+
+CREATE TYPE [dCity]
+	FROM NVARCHAR(15) NULL
+go
+
+CREATE TYPE [dCompanyName]
+	FROM NVARCHAR(40) NULL
+go
+
+CREATE TYPE [dContactName]
+	FROM NVARCHAR(30) NULL
+go
+
+CREATE TYPE [dContactTitle]
+	FROM NVARCHAR(30) NULL
+go
+
+CREATE TYPE [dCountry]
+	FROM NVARCHAR(15) NULL
+go
+
+CREATE TYPE [dCurrency]
+	FROM MONEY NULL
+go
+
+CREATE TYPE [dDateYYYYMMDD]
+	FROM DATETIME NOT NULL
+go
+
+CREATE TYPE [dDescription]
+	FROM NVARCHAR(200) NULL
+go
+
+CREATE TYPE [dFirstName]
+	FROM NVARCHAR(25) NULL
+go
+
+CREATE TYPE [dFlagBit]
+	FROM SMALLINT NULL
+go
+
+CREATE TYPE [dGrade]
+	FROM TINYINT NULL
+go
+
+CREATE TYPE [dlastName]
+	FROM NVARCHAR(35) NULL
+go
+
+CREATE TYPE [dName]
+	FROM NVARCHAR(40) NULL
+go
+
+CREATE TYPE [dNote]
+	FROM NVARCHAR(200) NULL
+go
+
+CREATE TYPE [dPercentage]
+	FROM NUMERIC(4,3) NULL
+go
+
+CREATE TYPE [dPostalCode]
+	FROM NVARCHAR(10) NULL
+go
+
+CREATE TYPE [dProductName]
+	FROM NVARCHAR(40) NULL
+go
+
+CREATE TYPE [dQuantitySmall]
+	FROM SMALLINT NULL
+go
+
+CREATE TYPE [dRegion]
+	FROM NVARCHAR(15) NULL
+go
+
+CREATE TYPE [dScore]
+	FROM TINYINT NOT NULL
+go
+
+CREATE TYPE [dSequenceNo]
+	FROM INTEGER NULL
+go
+
+CREATE TYPE [dShortDescription]
+	FROM NVARCHAR(15) NULL
+go
+
+CREATE TYPE [dStateName]
+	FROM NVARCHAR(15) NOT NULL
+go
+
+CREATE TYPE [dStudentIdentification]
+	FROM VARCHAR(10) NULL
+go
+
+CREATE TYPE [dSurrogateKeyInt]
+	FROM INTEGER NOT NULL
+go
+
+CREATE TYPE [dTelephoneNumber]
+	FROM CHAR(10) NULL
+go
+
+CREATE TYPE [dTextKey]
+	FROM VARCHAR(10) NOT NULL
+go
+
+CREATE TYPE [dTitle]
+	FROM NVARCHAR(30) NOT NULL
+go
+
+CREATE TYPE [dTitleOfCourtesy]
+	FROM NVARCHAR(5) NOT NULL
+go
+
+CREATE TYPE [dVersion]
+	FROM INTEGER NULL
+go
+
+CREATE TYPE [dYYYY]
+	FROM NCHAR(4) NOT NULL
+go
+
+CREATE TYPE [dTimeStampNow]
+	FROM DATETIME NOT NULL
+go
+
+CREATE TYPE [dTriggerOption]
+	FROM CHAR(1) NOT NULL
+go
+
+CREATE TYPE [dIsDeletion]
+	FROM CHAR(1) NOT NULL
+go
+
+CREATE TYPE [dFlagChar]
+	FROM CHAR(1) NOT NULL
+go
+
+CREATE TYPE [dIndividualProject]
+	FROM NVARCHAR(60) NULL
+go
+
+CREATE TYPE [dClassTime]
+	FROM NCHAR(5) NULL
+go
+
+CREATE TYPE [dGroupName]
+	FROM NVARCHAR(20) NOT NULL
+go
+
+CREATE TYPE [dDatetime2]
+	FROM DATETIME NULL
+go
+
+CREATE TYPE [dMidterm]
+	FROM CHAR(18) NULL
+go
+
+CREATE TYPE [dBlob]
+	FROM VARBINARY NULL
+go
+
+CREATE TYPE [dString]
+	FROM VARCHAR(20) NULL
+go
+
+CREATE TYPE [dNumber]
+	FROM INTEGER NULL
+go
+
+CREATE TYPE [dDatetime]
+	FROM DATETIME NULL
+go
+
+CREATE TABLE [AuditTriggeredEmployeeHistory]
+( 
+	[TriggeredEmployeeHistoryId] [dSurrogateKeyInt]  IDENTITY ( 1,1 )  NOT NULL ,
+	[AuditTriggeredEmployeeHistoryTimestamp] [dTimeStampNow]  NULL 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA]
+		 DEFAULT  sysdatetime(),
+	[TriggerOption]      [dTriggerOption]  NULL 
+	CONSTRAINT [DF__AuditTrig__Trigg__6477ECF3]
+		 DEFAULT  'U',
+	[EmployeeId]         [dSurrogateKeyInt]  NOT NULL ,
+	[EmployeeFullName]   [dName]  NOT NULL ,
+	[Department]         [dName]  NOT NULL ,
+	[Salary]             [dCurrency]  NOT NULL 
+	CONSTRAINT [DF_Salary_1499613587]
+		 DEFAULT  0
+	CONSTRAINT [CHK_Salary_1497660873]
+		CHECK  ( [Salary] >= (0) ),
+	[Notes]              [dNote]  NOT NULL ,
+	[IsDeleted]          [dFlagChar]  NULL 
+	CONSTRAINT [DF__AuditTrig__IsDel__656C112C]
+		 DEFAULT  'N',
+	[TransactionNumber]  [dSequenceNo]  NULL 
+	CONSTRAINT [DF__AuditTrig__Trans__66603565]
+		 DEFAULT  1,
+	[UserAuthenticatedKey] [dSurrogateKeyInt]  NULL 
+	CONSTRAINT [DF__AuditTrig__UserA__6754599E]
+		 DEFAULT  37,
+	[SysStartTime]       [dTimeStampNow]  NULL 
+	CONSTRAINT [DF__AuditTrig__SysSt__68487DD7]
+		 DEFAULT  sysdatetime(),
+	[SysEndTime]         [dTimeStampNow]  NULL 
+	CONSTRAINT [DF__AuditTrig__SysEn__693CA210]
+		 DEFAULT  '99991231 23:59:59',
+	[TimestampRowChanged] [dTimeStampNow]  NULL 
+	CONSTRAINT [DF__AuditTrig__Times__6A30C649]
+		 DEFAULT  sysdatetime(),
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_2011619448]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_188020718]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [Category]
+( 
+	[CategoryId]         [dSurrogateKeyInt]  IDENTITY ( 1,1 )  NOT NULL ,
+	[CategoryName]       [dCategoryName]  NOT NULL ,
+	[Description]        [dDescription]  NOT NULL ,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_568870759]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_372324587]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [Customer]
+( 
+	[CustomerId]         [dSurrogateKeyInt]  IDENTITY ( 1,1 )  NOT NULL ,
+	[CustomerCompanyName] [dCompanyName]  NOT NULL ,
+	[CustomerContactName] [dContactName]  NOT NULL ,
+	[CustomerContactTitle] [dTitle]  NOT NULL ,
+	[CustomerAddress]    [dAddress]  NOT NULL ,
+	[CustomerCity]       [dCity]  NOT NULL ,
+	[CustomerRegion]     [dRegion]  NULL ,
+	[CustomerPostalCode] [dPostalCode]  NULL ,
+	[CustomerCountry]    [dCountry]  NOT NULL ,
+	[CustomerPhoneNumber] [dTelephoneNumber]  NOT NULL ,
+	[CustomerFaxNumber]  [dTelephoneNumber]  NULL ,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_703617369]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_606679257]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [Employee]
+( 
+	[EmployeeId]         [dSurrogateKeyInt]  NOT NULL ,
+	[EmployeeFullName]   [dName]  NOT NULL ,
+	[Department]         [dName]  NOT NULL ,
+	[Salary]             [dCurrency]  NOT NULL 
+	CONSTRAINT [DF_Salary_432306336]
+		 DEFAULT  0
+	CONSTRAINT [CHK_Salary_847399766]
+		CHECK  ( [Salary] >= (0) ),
+	[Notes]              [dNote]  NOT NULL ,
+	[IsDeleted]          [dFlagChar]  NULL 
+	CONSTRAINT [DF__Employee__IsDele__6B24EA82]
+		 DEFAULT  'N',
+	[TransactionNumber]  [dSequenceNo]  NULL 
+	CONSTRAINT [DF__Employee__Transa__6C190EBB]
+		 DEFAULT  1,
+	[UserAuthenticatedKey] [dSurrogateKeyInt]  NULL 
+	CONSTRAINT [DF__Employee__UserAu__6D0D32F4]
+		 DEFAULT  37,
+	[SysStartTime]       [dTimeStampNow]  NULL 
+	CONSTRAINT [DF__Employee__SysSta__6E01572D]
+		 DEFAULT  sysdatetime(),
+	[SysEndTime]         [dTimeStampNow]  NULL 
+	CONSTRAINT [DF__Employee__SysEnd__6EF57B66]
+		 DEFAULT  '99991231 23:59:59',
+	[TimestampRowChanged] [dTimeStampNow]  NULL 
+	CONSTRAINT [DF__Employee__Timest__6FE99F9F]
+		 DEFAULT  sysdatetime(),
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_351427926]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_658386645]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [Employee]
+( 
+	[EmployeeId]         [dSurrogateKeyInt]  IDENTITY ( 1,1 )  NOT NULL 
+	CONSTRAINT [DF__Employee__SysEnd__6EF57B66_399004480]
+		 DEFAULT  '99991231 23:59:59',
+	[EmployeeLastName]   [dlastName]  NOT NULL ,
+	[EmployeeFirstName]  [dFirstName]  NOT NULL ,
+	[EmployeeTitle]      [dTitle]  NOT NULL ,
+	[EmployeeTitleOfCourtesy] [dTitleOfCourtesy]  NOT NULL ,
+	[BirthDate]          [dDateYYYYMMDD]  NOT NULL ,
+	[HireDate]           [dDateYYYYMMDD]  NOT NULL 
+	CONSTRAINT [DFT_Employees_SysStart_1364683771]
+		 DEFAULT  '19000101',
+	[EmployeeAddress]    [dAddress]  NOT NULL ,
+	[EmployeeCity]       [dCity]  NULL ,
+	[EmployeeRegion]     [dRegion]  NULL ,
+	[EmployeePostalCode] [dPostalCode]  NULL ,
+	[EmployeeCountry]    [dCountry]  NOT NULL ,
+	[EmployeePhoneNumber] [dTelephoneNumber]  NOT NULL ,
+	[EmployeeManagerId]  [dSurrogateKeyInt]  NULL ,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_351427926]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_658386645]
+		 DEFAULT  sysdatetime()
+)
+go
+
+ALTER TABLE [Employee]
+	 WITH CHECK ADD CONSTRAINT [CHK_birthdate] CHECK  ( BirthDate <= CONVERT([date],sysdatetime )
+go
+
+CREATE TABLE [Nums]
+( 
+	[N]                  [dSurrogateKeyInt]  NOT NULL ,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_1232344083]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_1885563578]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [Order]
+( 
+	[OrderId]            [dSurrogateKeyInt]  IDENTITY ( 1,1 )  NOT NULL ,
+	[CustomerId]         [dSurrogateKeyInt]  NULL ,
+	[EmployeeId]         [dSurrogateKeyInt]  NOT NULL ,
+	[ShipperId]          [dSurrogateKeyInt]  NOT NULL ,
+	[OrderDate]          [dDateYYYYMMDD]  NOT NULL ,
+	[RequiredDate]       [dDateYYYYMMDD]  NOT NULL ,
+	[ShipToDate]         [dDateYYYYMMDD]  NULL ,
+	[Freight]            [dCurrency]  NOT NULL 
+	CONSTRAINT [DFT_Orders_freight]
+		 DEFAULT  0,
+	[ShipToName]         [dContactName]  NOT NULL ,
+	[ShipToAddress]      [dAddress]  NOT NULL ,
+	[ShipToCity]         [dCity]  NOT NULL ,
+	[ShipToRegion]       [dRegion]  NULL ,
+	[ShipToPostalCode]   [dPostalCode]  NULL ,
+	[ShipToCountry]      [dCountry]  NOT NULL ,
+	[UserAuthenticationId] int  NOT NULL ,
+	[DateAdded]          [dDatetime2]  NULL 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_78633702]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2]  NULL 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_1756466857]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [OrderDetail]
+( 
+	[OrderId]            [dSurrogateKeyInt]  NOT NULL ,
+	[ProductId]          [dSurrogateKeyInt]  NOT NULL ,
+	[UnitPrice]          [dCurrency]  NOT NULL 
+	CONSTRAINT [DFT_OrderDetails_UnitPrice]
+		 DEFAULT  0,
+	[Quantity]           [dQuantitySmall]  NOT NULL 
+	CONSTRAINT [DFT_OrderDetails_Quantity]
+		 DEFAULT  1,
+	[DiscountPercentage] [dPercentage]  NOT NULL 
+	CONSTRAINT [DFT_OrderDetails_DiscountPercentage]
+		 DEFAULT  0,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_2031589792]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_589690472]
+		 DEFAULT  sysdatetime()
+)
+go
+
+ALTER TABLE [OrderDetail]
+	 WITH CHECK ADD CONSTRAINT [CHK_Quantity] CHECK  ( [Quantity]>(0) )
+go
+
+ALTER TABLE [OrderDetail]
+	 WITH CHECK ADD CONSTRAINT [CHK_DiscountPercentage] CHECK  ( DiscountPercentage BETWEEN 0 AND 1 )
+go
+
+CREATE TABLE [Product]
+( 
+	[ProductId]          [dSurrogateKeyInt]  IDENTITY ( 1,1 )  NOT NULL ,
+	[ProductName]        [dProductName]  NOT NULL ,
+	[SupplierId]         [dSurrogateKeyInt]  NOT NULL ,
+	[CategoryId]         [dSurrogateKeyInt]  NOT NULL ,
+	[UnitPrice]          [dCurrency]  NOT NULL 
+	CONSTRAINT [DFT_Products_unitprice]
+		 DEFAULT  0,
+	[Discontinued]       [dFlagBit]  NOT NULL 
+	CONSTRAINT [DFT_Products_discontinued]
+		 DEFAULT  0,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_648166486]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_657227510]
+		 DEFAULT  sysdatetime()
+)
+go
+
+ALTER TABLE [Product]
+	 WITH CHECK ADD CONSTRAINT [CHK_Products_unitprice] CHECK  ( UnitPrice >= 0 )
+go
+
+CREATE TABLE [Shipper]
+( 
+	[ShipperId]          [dSurrogateKeyInt]  IDENTITY ( 1,1 )  NOT NULL ,
+	[ShipperCompanyName] [dCompanyName]  NOT NULL ,
+	[PhoneNumber]        [dTelephoneNumber]  NOT NULL ,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_514734670]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_791966456]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [Supplier]
+( 
+	[SupplierId]         [dSurrogateKeyInt]  IDENTITY ( 1,1 )  NOT NULL ,
+	[SupplierCompanyName] [dCompanyName]  NOT NULL ,
+	[SupplierContactName] [dContactName]  NOT NULL ,
+	[SupplierContactTitle] [dContactTitle]  NOT NULL ,
+	[SupplierAddress]    [dAddress]  NOT NULL ,
+	[SupplierCity]       [dCity]  NOT NULL ,
+	[SupplierRegion]     [dRegion]  NULL ,
+	[SupplierPostalCode] [dPostalCode]  NULL ,
+	[SupplierCountry]    [dCountry]  NOT NULL ,
+	[SupplierPhoneNumber] [dTelephoneNumber]  NOT NULL ,
+	[SupplierFaxNumber]  [dTelephoneNumber]  NULL ,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_637359446]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_657269725]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [sysdiagrams]
+( 
+	[name]               sysname  NOT NULL ,
+	[principal_id]       int  NOT NULL ,
+	[diagram_id]         int  IDENTITY ( 1,1 )  NOT NULL ,
+	[version]            int  NULL ,
+	[definition]         varbinary(max)  NULL ,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_1860913976]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_1262351235]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [UserAuthorization]
+( 
+	[UserAuthorizationId] [dSurrogateKeyInt]  NOT NULL ,
+	[ClassTime]          [dClassTime] ,
+	[IndividualProject]  [dIndividualProject] 
+	CONSTRAINT [DF_IndividualProject_703972096]
+		 DEFAULT  'CSCI381 Midterm Project',
+	[GroupMemberLastName] [dlastName]  NOT NULL ,
+	[GroupMemberFirstName] [dFirstName]  NOT NULL ,
+	[GroupName]          [dGroupName] ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_420291397]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_943330319]
+		 DEFAULT  sysdatetime()
+)
+go
+
+CREATE TABLE [VersionedEmployeeHistory]
+( 
+	[EmployeeId]         int  NOT NULL ,
+	[EmployeeFullName]   varchar(25) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL ,
+	[Department]         varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL ,
+	[Salary]             [dCurrency]  NOT NULL 
+	CONSTRAINT [DF_Salary_1343167954]
+		 DEFAULT  0
+	CONSTRAINT [CHK_Salary_404940513]
+		CHECK  ( [Salary] >= (0) ),
+	[Notes]              varchar(60) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL ,
+	[SysStart]           datetime2  NOT NULL ,
+	[SysEnd]             datetime2  NOT NULL ,
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_559433693]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_1500805498]
+		 DEFAULT  sysdatetime()
+)
+go
+
+ALTER TABLE [AuditTriggeredEmployeeHistory]
+	ADD CONSTRAINT [PK_TriggeredEmployeeHistoryId] PRIMARY KEY  NONCLUSTERED ([TriggeredEmployeeHistoryId] ASC)
+go
+
+CREATE UNIQUE CLUSTERED INDEX [ix_Employees] ON [AuditTriggeredEmployeeHistory]
+( 
+	[EmployeeId]          ASC,
+	[SysStartTime]        ASC,
+	[SysEndTime]          ASC,
+	[TriggeredEmployeeHistoryId]  ASC
+)
+go
+
+ALTER TABLE [Category]
+	ADD CONSTRAINT [PK_Categories] PRIMARY KEY  CLUSTERED ([CategoryId] ASC)
+go
+
+ALTER TABLE [Customer]
+	ADD CONSTRAINT [PK_Customers] PRIMARY KEY  CLUSTERED ([CustomerId] ASC)
+go
+
+CREATE TABLE [Employee]
+( 
+	[EmployeeId]         int  NOT NULL ,
+	[EmployeeFullName]   varchar(25) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL ,
+	[Department]         varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL ,
+	[Salary]             [dCurrency]  NOT NULL 
+	CONSTRAINT [DF_Salary_432306336]
+		 DEFAULT  0
+	CONSTRAINT [CHK_Salary_847399766]
+		CHECK  ( [Salary] >= (0) ),
+	[Notes]              varchar(60) COLLATE SQL_Latin1_General_CP1_CI_AS  NOT NULL ,
+	[SysStart]           datetime2  GENERATED ALWAYS AS ROW START HIDDEN  NOT NULL 
+	CONSTRAINT [DFT_Employees_SysStart]
+		 DEFAULT  '19000101',
+	[SysEnd]             datetime2  GENERATED ALWAYS AS ROW END HIDDEN  NOT NULL 
+	CONSTRAINT [DFT_Employees_SysEnd]
+		 DEFAULT  '99991231 23:59:59',
+	[UserAuthorizationId] integer  NOT NULL ,
+	[DateAdded]          [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_351427926]
+		 DEFAULT  sysdatetime(),
+	[DateOfLastUpdate]   [dDatetime2] 
+	CONSTRAINT [DF__AuditTrig__Audit__6383C8BA_658386645]
+		 DEFAULT  sysdatetime(),
+	CONSTRAINT [PK_EmployeeVersioned] PRIMARY KEY  NONCLUSTERED ([EmployeeId] ASC),
+	PERIOD FOR SYSTEM_TIME (SysStart,SysEnd)
+)
+WITH 
+(
+	SYSTEM_VERSIONING = ON (HISTORY_TABLE = [Audit].[VersionedEmployeeHistory], DATA_CONSISTENCY_CHECK = OFF)
+)
+go
+
+ALTER TABLE [Employee]
+	ADD CONSTRAINT [PK_TriggeredEmployee] PRIMARY KEY  NONCLUSTERED ([EmployeeId] ASC)
+go
+
+CREATE CLUSTERED INDEX [ix_Employees] ON [Employee]
+( 
+	[EmployeeId]          ASC,
+	[SysStartTime]        ASC,
+	[SysEndTime]          ASC
+)
+go
+
+ALTER TABLE [Employee]
+	ADD CONSTRAINT [PK_Employees] PRIMARY KEY  CLUSTERED ([EmployeeId] ASC)
+go
+
+ALTER TABLE [Nums]
+	ADD CONSTRAINT [PK_Nums] PRIMARY KEY  CLUSTERED ([N] ASC)
+go
+
+ALTER TABLE [Order]
+	ADD CONSTRAINT [PK_Orders] PRIMARY KEY  CLUSTERED ([OrderId] ASC)
+go
+
+ALTER TABLE [OrderDetail]
+	ADD CONSTRAINT [PK_OrderDetails] PRIMARY KEY  CLUSTERED ([OrderId] ASC,[ProductId] ASC)
+go
+
+ALTER TABLE [Product]
+	ADD CONSTRAINT [PK_Products] PRIMARY KEY  CLUSTERED ([ProductId] ASC)
+go
+
+ALTER TABLE [Shipper]
+	ADD CONSTRAINT [PK_Shippers] PRIMARY KEY  CLUSTERED ([ShipperId] ASC)
+go
+
+ALTER TABLE [Supplier]
+	ADD CONSTRAINT [PK_Suppliers] PRIMARY KEY  CLUSTERED ([SupplierId] ASC)
+go
+
+ALTER TABLE [sysdiagrams]
+	ADD CONSTRAINT [PK__sysdiagr__C2B05B614BFF77F0] PRIMARY KEY  CLUSTERED ([diagram_id] ASC)
+go
+
+ALTER TABLE [sysdiagrams]
+	ADD CONSTRAINT [UK_principal_name] UNIQUE ([principal_id]  ASC,[name]  ASC)
+go
+
+ALTER TABLE [UserAuthorization]
+	ADD CONSTRAINT [XPKUserAuthorization] PRIMARY KEY  CLUSTERED ([UserAuthorizationId] ASC)
+go
+
+CREATE CLUSTERED INDEX [ix_VersionedEmployeeHistory] ON [VersionedEmployeeHistory]
+( 
+	[SysEnd]              ASC,
+	[SysStart]            ASC
+)
+go
+
+CREATE VIEW [uvw_HumanResourcesEmployee]([EmployeeObjectId],[EmployeeLastName],[EmployeeFirstName],[EmployeeTitle],[EmployeeTitleOfCourtesy],[BirthDate],[HireDate],[EmployeeAddress],[EmployeeCity],[EmployeeRegion],[EmployeePostalCode],[EmployeeCountry],[EmployeePhoneNumber],[EmployeeManagerId])
+AS
+SELECT E.[EmployeeId],E.[EmployeeLastName],E.[EmployeeFirstName],E.[EmployeeTitle],E.[EmployeeTitleOfCourtesy],E.[BirthDate],E.[HireDate],E.[EmployeeAddress],E.[EmployeeCity],E.[EmployeeRegion],E.[EmployeePostalCode],E.[EmployeeCountry],E.[EmployeePhoneNumber],E.[EmployeeManagerId]
+	FROM [Employee] E
+go
+
+CREATE VIEW [uvw_ProductionCategory]([CategoryObjectId],[CategoryName],[Description])
+AS
+SELECT [Category].[CategoryId],[Category].[CategoryName],[Category].[Description]
+	FROM [Category]
+go
+
+CREATE VIEW [JsonOutput].[uvw_ProductionProduct] AS  SELECT P.ProductId AS ProductObjectId, P.ProductName, P.SupplierId, P.CategoryId, P.UnitPrice, P.Discontinued, C.CategoryId AS Production.CategoryObjectId, C.CategoryName AS Production.CategoryName, C.Description AS Production.Description, S.SupplierId AS Production.SupplierId, S.SupplierCompanyName AS Production.SupplierCompanyName, S.SupplierContactName AS Production.SupplierContactName, S.SupplierPhoneNumber AS Production.SupplierPhoneNumber, S.SupplierFaxNumber AS Production.SupplierFaxNumber FROM Production.Product AS P   INNER JOIN   Production.Category AS C ON C.CategoryId = P.CategoryId   INNER JOIN   Production.Supplier AS S ON S.SupplierId = P.SupplierId
+go
+
+CREATE VIEW [uvw_ProductionSupplier]([SupplierObjectId],[SupplierCompanyName],[SupplierContactName],[SupplierContactTitle],[SupplierAddress],[SupplierCity],[SupplierRegion],[SupplierPostalCode],[SupplierCountry],[SupplierPhoneNumber],[SupplierFaxNumber])
+AS
+SELECT S.[SupplierId],S.[SupplierCompanyName],S.[SupplierContactName],S.[SupplierContactTitle],S.[SupplierAddress],S.[SupplierCity],S.[SupplierRegion],S.[SupplierPostalCode],S.[SupplierCountry],S.[SupplierPhoneNumber],S.[SupplierFaxNumber]
+	FROM [Supplier] S
+go
+
+CREATE VIEW [uvw_SalesCustomer]([CustomerObjectId],[CustomerCompanyName],[CustomerContactName],[CustomerContactTitle],[CustomerAddress],[CustomerCity],[CustomerRegion],[CustomerPostalCode],[CustomerCountry],[CustomerPhoneNumber],[CustomerFaxNumber])
+AS
+SELECT C.[CustomerId],C.[CustomerCompanyName],C.[CustomerContactName],C.[CustomerContactTitle],C.[CustomerAddress],C.[CustomerCity],C.[CustomerRegion],C.[CustomerPostalCode],C.[CustomerCountry],C.[CustomerPhoneNumber],C.[CustomerFaxNumber]
+	FROM [Customer] C
+go
+
+CREATE VIEW [uvw_SalesShipper]([ShipperObjectId],[ShipperCompanyName],[PhoneNumber])
+AS
+SELECT S.[ShipperId],S.[ShipperCompanyName],S.[PhoneNumber]
+	FROM [Shipper] S
+go
+
+CREATE VIEW [uvw_Order]([OrderId],[CustomerId],[EmployeeId],[ShipperId],[OrderDate],[RequiredDate],[ShipToDate],[Freight],[ShipToName],[ShipToAddress],[ShipToCity],[ShipToRegion],[ShipToPostalCode],[ShipToCountry])
+AS
+SELECT O.[OrderId],O.[CustomerId],O.[EmployeeId],O.[ShipperId],O.[OrderDate],O.[RequiredDate],O.[ShipToDate],O.[Freight],O.[ShipToName],O.[ShipToAddress],O.[ShipToCity],O.[ShipToRegion],O.[ShipToPostalCode],O.[ShipToCountry]
+	FROM [Order] O
+go
+
+CREATE VIEW [uvw_OrderDetail]([OrderId],[ProductId],[UnitPrice],[Quantity],[DiscountPercentage])
+AS
+SELECT OD.[OrderId],OD.[ProductId],OD.[UnitPrice],OD.[Quantity],OD.[DiscountPercentage]
+	FROM [OrderDetail] OD
+go
+
+CREATE VIEW [Utils].[uvw_FindColumnDefinitionPlusDefaultAndCheckConstraint] AS  SELECT  concat( tbl.TABLE_SCHEMA , '.' , tbl.TABLE_NAME )  AS FullyQualifiedTableName, tbl.TABLE_SCHEMA AS SchemaName, tbl.TABLE_NAME AS TableName, col.COLUMN_NAME AS ColumnName, col.ORDINAL_POSITION AS OrdinalPosition,  concat( col.DOMAIN_SCHEMA , '.' , col.DOMAIN_NAME )  AS FullyQualifiedDomainName, col.DOMAIN_NAME AS DomainName, CASE WHEN col.DATA_TYPE = 'varchar' THEN  concat( 'varchar(' , CHARACTER_MAXIMUM_LENGTH , ')' )  WHEN col.DATA_TYPE = 'char' THEN  concat( 'char(' , CHARACTER_MAXIMUM_LENGTH , ')' )  WHEN col.DATA_TYPE = 'nvarchar' THEN  concat( 'nvarchar(' , CHARACTER_MAXIMUM_LENGTH , ')' )  WHEN col.DATA_TYPE = 'nchar' THEN  concat( 'nchar(' , CHARACTER_MAXIMUM_LENGTH , ')' )  WHEN col.DATA_TYPE = 'numeric' THEN  concat( 'numeric(' , NUMERIC_PRECISION_RADIX , ', ' , NUMERIC_SCALE , ')' )  WHEN col.DATA_TYPE = 'decimal' THEN  concat( 'decimal(' , NUMERIC_PRECISION_RADIX , ', ' , NUMERIC_SCALE , ')' )  ELSE col.DATA_TYPE END AS DataType, col.IS_NULLABLE AS IsNullable, dcn.DefaultName, col.COLUMN_DEFAULT AS DefaultNameDefinition, cc.CONSTRAINT_NAME AS CheckConstraintRuleName, cc.CHECK_CLAUSE AS CheckConstraintRuleNameDefinition FROM (  SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE FROM INFORMATION_SCHEMA.TABLES WHERE ( TABLE_TYPE = 'BASE TABLE' ) ) AS tbl    INNER JOIN   (  SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, COLUMN_DEFAULT, IS_NULLABLE, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, CHARACTER_OCTET_LENGTH, NUMERIC_PRECISION, NUMERIC_PRECISION_RADIX, NUMERIC_SCALE, DATETIME_PRECISION, CHARACTER_SET_CATALOG, CHARACTER_SET_SCHEMA, CHARACTER_SET_NAME, COLLATION_CATALOG, COLLATION_SCHEMA, COLLATION_NAME, DOMAIN_CATALOG, DOMAIN_SCHEMA, DOMAIN_NAME FROM INFORMATION_SCHEMA.COLUMNS ) AS col  ON col.TABLE_CATALOG = tbl.TABLE_CATALOG AND col.TABLE_SCHEMA = tbl.TABLE_SCHEMA AND col.TABLE_NAME = tbl.TABLE_NAME   LEFT OUTER JOIN   (  SELECT t.name AS TableName,  schema_name( s.schema_id )  AS SchemaName, ac.name AS ColumnName, d.name AS DefaultName FROM sys.all_columns AS ac   INNER JOIN   sys.tables AS t ON ac.object_id = t.object_id   INNER JOIN   sys.schemas AS s ON t.schema_id = s.schema_id   INNER JOIN   sys.default_constraints AS d ON ac.default_object_id = d.object_id ) AS dcn  ON dcn.SchemaName = tbl.TABLE_SCHEMA AND dcn.TableName = tbl.TABLE_NAME AND dcn.ColumnName = col.COLUMN_NAME   LEFT OUTER JOIN   (  SELECT cu.TABLE_CATALOG, cu.TABLE_SCHEMA, cu.TABLE_NAME, cu.COLUMN_NAME, c.CONSTRAINT_CATALOG, c.CONSTRAINT_SCHEMA, c.CONSTRAINT_NAME, c.CHECK_CLAUSE FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE AS cu   INNER JOIN   INFORMATION_SCHEMA.CHECK_CONSTRAINTS AS c ON c.CONSTRAINT_NAME = cu.CONSTRAINT_NAME ) AS cc  ON cc.TABLE_SCHEMA = tbl.TABLE_SCHEMA AND cc.TABLE_NAME = tbl.TABLE_NAME AND cc.COLUMN_NAME = col.COLUMN_NAME
+go
+
+CREATE VIEW [uw_FindAllDatabaseColumnsOnTheServer]([FullyQualifiedTableName],[SchemaName],[ColumnName],[OrdinalPosition],[FullyQualifiedDomainName],[DataType],[IsNullable],[DefaultName],[DefaultNameDefinition],[CheckConstraintRuleName],[CheckConstraintRuleNameDefinition],[Server_Name],[Target_Database_Version],[Instance_Name],[Database_Name],[Host_Name])
+AS
+SELECT vw.FullyQualifiedTableName,vw.SchemaName,vw.ColumnName,vw.OrdinalPosition,vw.FullyQualifiedDomainName,vw.DataType,vw.IsNullable,vw.DefaultName,vw.DefaultNameDefinition,vw.CheckConstraintRuleName,vw.CheckConstraintRuleNameDefinition,@@servername,@@version,@@servicename,db_name(),host_name()
+	FROM [uvw_FindColumnDefinitionPlusDefaultAndCheckConstraint] vw
+		WHERE vw.SchemaName IN ('Sales' , 'Production' , 'HumanResources')
+go
+
+
+ALTER TABLE [Employee] WITH CHECK 
+	ADD CONSTRAINT [FK_Employees_Employees] FOREIGN KEY ([EmployeeManagerId]) REFERENCES [Employee]([EmployeeId])
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE [Employee]
+	  WITH CHECK CHECK CONSTRAINT [FK_Employees_Employees]
+go
+
+
+ALTER TABLE [Order] WITH CHECK 
+	ADD CONSTRAINT [FK_Order_Customer1] FOREIGN KEY ([CustomerId]) REFERENCES [Customer]([CustomerId])
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE [Order]
+	  WITH CHECK CHECK CONSTRAINT [FK_Order_Customer1]
+go
+
+ALTER TABLE [Order] WITH CHECK 
+	ADD CONSTRAINT [FK_Order_Employee] FOREIGN KEY ([EmployeeId]) REFERENCES [Employee]([EmployeeId])
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE [Order]
+	  WITH CHECK CHECK CONSTRAINT [FK_Order_Employee]
+go
+
+ALTER TABLE [Order] WITH CHECK 
+	ADD CONSTRAINT [FK_Order_Shipper] FOREIGN KEY ([ShipperId]) REFERENCES [Shipper]([ShipperId])
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE [Order]
+	  WITH CHECK CHECK CONSTRAINT [FK_Order_Shipper]
+go
+
+
+ALTER TABLE [OrderDetail] WITH CHECK 
+	ADD CONSTRAINT [FK_OrderDetail_Order] FOREIGN KEY ([OrderId]) REFERENCES [Order]([OrderId])
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE [OrderDetail]
+	  WITH CHECK CHECK CONSTRAINT [FK_OrderDetail_Order]
+go
+
+ALTER TABLE [OrderDetail] WITH CHECK 
+	ADD CONSTRAINT [FK_OrderDetail_Product] FOREIGN KEY ([ProductId]) REFERENCES [Product]([ProductId])
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE [OrderDetail]
+	  WITH CHECK CHECK CONSTRAINT [FK_OrderDetail_Product]
+go
+
+
+ALTER TABLE [Product] WITH CHECK 
+	ADD CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category]([CategoryId])
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE [Product]
+	  WITH CHECK CHECK CONSTRAINT [FK_Product_Category]
+go
+
+ALTER TABLE [Product] WITH CHECK 
+	ADD CONSTRAINT [FK_product_supplier] FOREIGN KEY ([SupplierId]) REFERENCES [Supplier]([SupplierId])
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+ALTER TABLE [Product]
+	  WITH CHECK CHECK CONSTRAINT [FK_product_supplier]
+go
+
+CREATE FUNCTION [fn_diagramobjects] ()  
+  RETURNS int 
+ WITH 
+ EXECUTE AS 'dbo' 
+AS BEGIN
+		declare @id_upgraddiagrams		int
+		declare @id_sysdiagrams			int
+		declare @id_helpdiagrams		int
+		declare @id_helpdiagramdefinition	int
+		declare @id_creatediagram	int
+		declare @id_renamediagram	int
+		declare @id_alterdiagram 	int 
+		declare @id_dropdiagram		int
+		declare @InstalledObjects	int
+
+		select @InstalledObjects = 0
+
+		select 	@id_upgraddiagrams = object_id(N'dbo.sp_upgraddiagrams'),
+			@id_sysdiagrams = object_id(N'dbo.sysdiagrams'),
+			@id_helpdiagrams = object_id(N'dbo.sp_helpdiagrams'),
+			@id_helpdiagramdefinition = object_id(N'dbo.sp_helpdiagramdefinition'),
+			@id_creatediagram = object_id(N'dbo.sp_creatediagram'),
+			@id_renamediagram = object_id(N'dbo.sp_renamediagram'),
+			@id_alterdiagram = object_id(N'dbo.sp_alterdiagram'), 
+			@id_dropdiagram = object_id(N'dbo.sp_dropdiagram')
+
+		if @id_upgraddiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 1
+		if @id_sysdiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 2
+		if @id_helpdiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 4
+		if @id_helpdiagramdefinition is not null
+			select @InstalledObjects = @InstalledObjects + 8
+		if @id_creatediagram is not null
+			select @InstalledObjects = @InstalledObjects + 16
+		if @id_renamediagram is not null
+			select @InstalledObjects = @InstalledObjects + 32
+		if @id_alterdiagram  is not null
+			select @InstalledObjects = @InstalledObjects + 64
+		if @id_dropdiagram is not null
+			select @InstalledObjects = @InstalledObjects + 128
+		
+		return @InstalledObjects 
+	END
+go
+
+CREATE FUNCTION [MongoOrder] ()  
+  RETURNS TABLE
+ 
+  
+as RETURN
+(
+    select o.OrderId as OrderObjectId
+         , o.OrderDate
+         , o.RequiredDate
+         , o.ShipToDate
+         , o.Freight
+         , o.ShipToName
+         , o.ShipToAddress
+         , o.ShipToCity
+         , o.ShipToRegion
+         , o.ShipToPostalCode
+         , o.ShipToCountry
+         , (
+               select SalesCustomer.CustomerId          as 'CustomerObjectId'
+                    , SalesCustomer.CustomerCompanyName as 'CustomerCompanyName'
+                    , SalesCustomer.CustomerContactName as 'CustomerContactName'
+                    , SalesCustomer.CustomerPhoneNumber as 'CustomerPhoneNumber'
+                    , SalesCustomer.CustomerFaxNumber   as 'CustomerFaxNumber'
+               from Sales.[Order]            as o2
+                   inner join Sales.Customer as SalesCustomer
+                       on SalesCustomer.CustomerId = o.CustomerId
+               where o.OrderId = o2.OrderId
+               for json path, include_null_values
+           )         as SalesCustomer
+         , (
+               select HumanResourcesEmployee.EmployeeId          as 'EmployeeObjectId'
+                    , HumanResourcesEmployee.EmployeeLastName    as 'EmployeeLastName'
+                    , HumanResourcesEmployee.EmployeeFirstName   as 'EmployeeFirstName'
+                    , HumanResourcesEmployee.EmployeePhoneNumber as 'EmployeePhoneNumber'
+                    , HumanResourcesEmployee.EmployeeManagerId   as 'EmployeeManagerId'
+               from Sales.[Order]                     as o2
+                   inner join HumanResources.Employee as HumanResourcesEmployee
+                       on HumanResourcesEmployee.EmployeeId = o2.EmployeeId
+               where o.OrderId = o2.OrderId
+               for json path, include_null_values
+           )         as HumanResourcesEmployee
+         , (
+               select SalesShipper.ShipperId          as 'ShipperObjectId'
+                    , SalesShipper.ShipperCompanyName as 'ShipperCompanyName'
+                    , SalesShipper.PhoneNumber        as 'PhoneNumber'
+               from Sales.[Order]           as o2
+                   inner join Sales.Shipper as SalesShipper
+                       on SalesShipper.ShipperId = o2.ShipperId
+               where o.OrderId = o2.OrderId
+               for json path, include_null_values
+           )         as SalesShipper
+    from Sales.[Order]                     as o
+        inner join Sales.Customer          as SalesCustomer
+            on SalesCustomer.CustomerId = o.CustomerId
+        inner join HumanResources.Employee as HumanResourcesEmployee
+            on HumanResourcesEmployee.EmployeeId = o.EmployeeId
+        inner join Sales.Shipper           as SalesShipper
+            on SalesShipper.ShipperId = o.ShipperId
+);
+
+
+
+
+go
+
+CREATE FUNCTION [MongoOrderDetail] (@OrderId int )  
+  RETURNS TABLE
+ 
+  
+as RETURN
+(
+    select OrderDetail.OrderId                                                                    as OrderObjectId
+         , row_number() over (partition by OrderDetail.OrderId order by OrderDetail.OrderId)      as LineItemNumer
+         , OrderDetail.UnitPrice
+         , OrderDetail.Quantity
+         , OrderDetail.DiscountPercentage
+         , OrderDetail.UnitPrice * OrderDetail.Quantity                                           as TotalCost
+         , (OrderDetail.UnitPrice * OrderDetail.Quantity) * (1. - OrderDetail.DiscountPercentage) as TotalDiscountedCost
+         , OrderDetail.OrderId
+         , (
+               select distinct
+                      ProductionProduct.ProductId    as 'ProductionProduct.ProductObjectId'
+                    , ProductionProduct.ProductName  as 'ProductionProduct.ProductName'
+                    , ProductionProduct.SupplierId   as 'ProductionProduct.SupplierId'
+                    , ProductionProduct.CategoryId   as 'ProductionProduct.CategoryId'
+                    , ProductionProduct.UnitPrice    as 'ProductionProduct.UnitPrice'
+                    , ProductionProduct.Discontinued as 'ProductionProduct.Discontinued'
+               from Production.Product            as ProductionProduct
+                   inner join Production.Category as ProductionCategory
+                       on ProductionCategory.CategoryId = ProductionProduct.CategoryId
+                   inner join Production.Supplier as ProductionSupplier
+                       on ProductionSupplier.SupplierId = ProductionProduct.SupplierId
+                   inner join Sales.OrderDetail   as od
+                       on OrderDetail.ProductId = ProductionProduct.ProductId
+               where od.OrderId = OrderDetail.OrderId
+               for json path, include_null_values
+           )                                                                                      as ProductionProduct
+         , (
+               select distinct
+                      ProductionCategory.CategoryId   as 'ProductionCategory.CategoryObjectId'
+                    , ProductionCategory.CategoryName as 'ProductionCategory.CategoryName'
+                    , ProductionCategory.Description  as 'ProductionCategory.Description'
+               from Production.Product            as ProductionProduct
+                   inner join Production.Category as ProductionCategory
+                       on ProductionCategory.CategoryId = ProductionProduct.CategoryId
+                   inner join Sales.OrderDetail   as od
+                       on OrderDetail.ProductId = ProductionProduct.ProductId
+               where od.OrderId = OrderDetail.OrderId
+               for json path, include_null_values
+           )                                                                                      as ProductionCategory
+         , (
+               select distinct
+                      ProductionSupplier.SupplierId          as 'ProductionSupplier.SupplierObjectId'
+                    , ProductionSupplier.SupplierCompanyName as 'ProductionSupplier.SupplierCompanyName'
+                    , ProductionSupplier.SupplierContactName as 'ProductionSupplier.SupplierContactName'
+                    , ProductionSupplier.SupplierPhoneNumber as 'ProductionSupplier.SupplierPhoneNumber'
+                    , ProductionSupplier.SupplierFaxNumber   as 'ProductionSupplier.SupplierFaxNumber'
+               from Production.Product            as ProductionProduct
+                   inner join Production.Supplier as ProductionSupplier
+                       on ProductionSupplier.SupplierId = ProductionProduct.SupplierId
+                   inner join Sales.OrderDetail   as od
+                       on OrderDetail.ProductId = ProductionProduct.ProductId
+               where od.OrderId = OrderDetail.OrderId
+               for json path, include_null_values
+           )                                                                                      as ProductionSupplier
+    from Production.Product            as ProductionProduct
+        inner join Production.Category as ProductionCategory
+            on ProductionCategory.CategoryId = ProductionProduct.CategoryId
+        inner join Production.Supplier as ProductionSupplier
+            on ProductionSupplier.SupplierId = ProductionProduct.SupplierId
+        inner join Sales.OrderDetail   as OrderDetail
+            on OrderDetail.ProductId = ProductionProduct.ProductId
+    where OrderDetail.OrderId = @OrderId
+);
+
+
+
+
+go
+
+CREATE FUNCTION [utvf_EmployeeCurrentAndHistoryCTE] (@EmployeeId int )  
+  RETURNS TABLE
+ 
+  
+as RETURN
+	(
+		with AllTransactions
+		as (select 'Current row' as TransactionRow
+				 , EmployeeId
+				 , EmployeeFullName
+				 , Department
+				 , Salary
+				 , Notes
+				 , IsDeleted
+				 , TransactionNumber
+				 , UserAuthenticatedKey
+				 , SysStartTime
+				 , SysEndTime
+				 , TimestampRowChanged
+			from [Triggered].[Employee]
+			where EmployeeId = @EmployeeId
+			union
+			select case
+					   when IsDeleted = 'N' then
+						   'History row'
+					   else
+						   'Deleted row'
+				   end as TransactionRow
+				 , EmployeeId
+				 , EmployeeFullName
+				 , Department
+				 , Salary
+				 , Notes
+				 , IsDeleted
+				 , TransactionNumber
+				 , UserAuthenticatedKey
+				 , SysStartTime
+				 , SysEndTime
+				 , TimestampRowChanged
+			from [Triggered].[AuditTriggeredEmployeeHistory]
+			where EmployeeId = @EmployeeId)
+		select AllTransactions.TransactionRow
+			 , AllTransactions.EmployeeId
+			 , AllTransactions.EmployeeFullName
+			 , AllTransactions.Department
+			 , AllTransactions.Salary
+			 , AllTransactions.Notes
+			 , AllTransactions.IsDeleted
+			 , AllTransactions.TransactionNumber
+			 , AllTransactions.UserAuthenticatedKey
+			 , AllTransactions.SysStartTime
+			 , AllTransactions.SysEndTime
+			 , AllTransactions.TimestampRowChanged
+		from AllTransactions
+	);
+
+
+
+
+go
+
+CREATE FUNCTION [utvf_EmployeeCurrentAndHistory] (@EmployeeId int )  
+  RETURNS TABLE
+ 
+  
+as RETURN
+		(
+			select 'Current row' as TransactionRow
+				 , EmployeeId
+				 , EmployeeFullName
+				 , Department
+				 , Salary
+				 , Notes
+				 , IsDeleted
+				 , TransactionNumber
+				 , UserAuthenticatedKey
+				 , SysStartTime
+				 , SysEndTime
+				 , TimestampRowChanged
+			from [Triggered].[Employee]
+			where EmployeeId = @EmployeeId
+			union all
+			select case
+					   when IsDeleted = 'N' then
+						   'History row'
+					   else
+						   'Deleted Row'
+				   end as TransactionRow
+				 , EmployeeId
+				 , EmployeeFullName
+				 , Department
+				 , Salary
+				 , Notes
+				 , IsDeleted
+				 , TransactionNumber
+				 , UserAuthenticatedKey
+				 , SysStartTime
+				 , SysEndTime
+				 , TimestampRowChanged
+			from [Triggered].[AuditTriggeredEmployeeHistory]
+			where EmployeeId = @EmployeeId
+		);
+
+
+
+
+
+go
+
+CREATE PROCEDURE [sp_upgraddiagrams]   
+   
+ AS BEGIN
+		IF OBJECT_ID(N'dbo.sysdiagrams') IS NOT NULL
+			return 0;
+	
+		CREATE TABLE dbo.sysdiagrams
+		(
+			name sysname NOT NULL,
+			principal_id int NOT NULL,				diagram_id int PRIMARY KEY IDENTITY,
+			version int,
+	
+			definition varbinary(max)
+			CONSTRAINT UK_principal_name UNIQUE
+			(
+				principal_id,
+				name
+			)
+		);
+
+
+		
+		
+
+		IF OBJECT_ID(N'dbo.dtproperties') IS NOT NULL
+		begin
+			insert into dbo.sysdiagrams
+			(
+				[name],
+				[principal_id],
+				[version],
+				[definition]
+			)
+			select	 
+				convert(sysname, dgnm.[uvalue]),
+				DATABASE_PRINCIPAL_ID(N'dbo'),							0,											dgdef.[lvalue]
+			from dbo.[dtproperties] dgnm
+				inner join dbo.[dtproperties] dggd on dggd.[property] = 'DtgSchemaGUID' and dggd.[objectid] = dgnm.[objectid]	
+				inner join dbo.[dtproperties] dgdef on dgdef.[property] = 'DtgSchemaDATA' and dgdef.[objectid] = dgnm.[objectid]
+				
+			where dgnm.[property] = 'DtgSchemaNAME' and dggd.[uvalue] like N'_EA3E6268-D998-11CE-9454-00AA00A3F36E_' 
+			return 2;
+		end
+		return 1;
+	END
+go
+
+CREATE PROCEDURE [sp_helpdiagrams] @diagramname sysname  = NULL , @owner_id int  = NULL   
+ WITH 
+ EXECUTE AS 'dbo'  
+ AS BEGIN
+		DECLARE @user sysname
+		DECLARE @dboLogin bit
+		EXECUTE AS CALLER;
+			SET @user = USER_NAME();
+			SET @dboLogin = CONVERT(bit,IS_MEMBER('db_owner'));
+		REVERT;
+		SELECT
+			[Database] = DB_NAME(),
+			[Name] = name,
+			[ID] = diagram_id,
+			[Owner] = USER_NAME(principal_id),
+			[OwnerID] = principal_id
+		FROM
+			sysdiagrams
+		WHERE
+			(@dboLogin = 1 OR USER_NAME(principal_id) = @user) AND
+			(@diagramname IS NULL OR name = @diagramname) AND
+			(@owner_id IS NULL OR principal_id = @owner_id)
+		ORDER BY
+			4, 5, 1
+	END
+go
+
+CREATE PROCEDURE [sp_helpdiagramdefinition] @diagramname sysname , @owner_id int  = null   
+ WITH 
+ EXECUTE AS 'dbo'  
+ AS BEGIN
+		set nocount on
+
+		declare @theId 		int
+		declare @IsDbo 		int
+		declare @DiagId		int
+		declare @UIDFound	int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR (N'E_INVALIDARG', 16, 1);
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner');
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		revert; 
+	
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname;
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId ))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1);
+			return -3
+		end
+
+		select version, definition FROM dbo.sysdiagrams where diagram_id = @DiagId ; 
+		return 0
+	END
+go
+
+CREATE PROCEDURE [sp_creatediagram] @diagramname sysname , @owner_id int  = null , @version int , @definition varbinary(max)   
+ WITH 
+ EXECUTE AS 'dbo'  
+ AS BEGIN
+		set nocount on
+	
+		declare @theId int
+		declare @retval int
+		declare @IsDbo	int
+		declare @userName sysname
+		if(@version is null or @diagramname is null)
+		begin
+			RAISERROR (N'E_INVALIDARG', 16, 1);
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID(); 
+		select @IsDbo = IS_MEMBER(N'db_owner');
+		revert; 
+		
+		if @owner_id is null
+		begin
+			select @owner_id = @theId;
+		end
+		else
+		begin
+			if @theId <> @owner_id
+			begin
+				if @IsDbo = 0
+				begin
+					RAISERROR (N'E_INVALIDARG', 16, 1);
+					return -1
+				end
+				select @theId = @owner_id
+			end
+		end
+				if EXISTS(select diagram_id from dbo.sysdiagrams where principal_id = @theId and name = @diagramname)
+		begin
+			RAISERROR ('The name is already used.', 16, 1);
+			return -2
+		end
+	
+		insert into dbo.sysdiagrams(name, principal_id , version, definition)
+				VALUES(@diagramname, @theId, @version, @definition) ;
+		
+		select @retval = @@IDENTITY 
+		return @retval
+	END
+go
+
+CREATE PROCEDURE [sp_renamediagram] @diagramname sysname , @owner_id int  = null , @new_diagramname sysname   
+ WITH 
+ EXECUTE AS 'dbo'  
+ AS BEGIN
+		set nocount on
+		declare @theId 			int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+		declare @DiagIdTarg		int
+		declare @u_name			sysname
+		if((@diagramname is null) or (@new_diagramname is null))
+		begin
+			RAISERROR ('Invalid value', 16, 1);
+			return -1
+		end
+	
+		EXECUTE AS CALLER;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		REVERT;
+	
+		select @u_name = USER_NAME(@owner_id)
+	
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1)
+			return -3
+		end
+	
+					
+		if(@u_name is null)
+			select @DiagIdTarg = diagram_id from dbo.sysdiagrams where principal_id = @theId and name = @new_diagramname
+		else
+			select @DiagIdTarg = diagram_id from dbo.sysdiagrams where principal_id = @owner_id and name = @new_diagramname
+	
+		if((@DiagIdTarg is not null) and  @DiagId <> @DiagIdTarg)
+		begin
+			RAISERROR ('The name is already used.', 16, 1);
+			return -2
+		end		
+	
+		if(@u_name is null)
+			update dbo.sysdiagrams set [name] = @new_diagramname, principal_id = @theId where diagram_id = @DiagId
+		else
+			update dbo.sysdiagrams set [name] = @new_diagramname where diagram_id = @DiagId
+		return 0
+	END
+go
+
+CREATE PROCEDURE [sp_alterdiagram] @diagramname sysname , @owner_id int  = null , @version int , @definition varbinary(max)   
+ WITH 
+ EXECUTE AS 'dbo'  
+ AS BEGIN
+		set nocount on
+	
+		declare @theId 			int
+		declare @retval 		int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+		declare @ShouldChangeUID	int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR ('Invalid ARG', 16, 1)
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID();	 
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		revert;
+	
+		select @ShouldChangeUID = 0
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		
+		if(@DiagId IS NULL or (@IsDbo = 0 and @theId <> @UIDFound))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1);
+			return -3
+		end
+	
+		if(@IsDbo <> 0)
+		begin
+			if(@UIDFound is null or USER_NAME(@UIDFound) is null) 			begin
+				select @ShouldChangeUID = 1 ;
+			end
+		end
+
+				update dbo.sysdiagrams set definition = @definition where diagram_id = @DiagId ;
+
+				if(@ShouldChangeUID = 1)
+			update dbo.sysdiagrams set principal_id = @theId where diagram_id = @DiagId ;
+
+				if(@version is not null)
+			update dbo.sysdiagrams set version = @version where diagram_id = @DiagId ;
+
+		return 0
+	END
+go
+
+CREATE PROCEDURE [sp_dropdiagram] @diagramname sysname , @owner_id int  = null   
+ WITH 
+ EXECUTE AS 'dbo'  
+ AS BEGIN
+		set nocount on
+		declare @theId 			int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR ('Invalid value', 16, 1);
+			return -1
+		end
+	
+		EXECUTE AS CALLER;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		REVERT; 
+		
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1)
+			return -3
+		end
+	
+		delete from dbo.sysdiagrams where diagram_id = @DiagId;
+	
+		return 0;
+	END
+go
+
+CREATE PROCEDURE [usp_getorders] @country nvarchar(40)   
+   
+ AS begin
+    select o.OrderId
+         , o.CustomerId
+         , o.EmployeeId
+         , o.OrderDate
+		 ,@country as Country
+    from Sales.[Order] as o
+    where o.ShipToCountry = @country;
+end;
+go
+
+CREATE TRIGGER [uTdu_AuditTriggeredEmployeeHistory] ON Employee
+   WITH 
+ EXECUTE AS CALLER  AFTER DELETE,UPDATE 
+  
+  AS
+
+begin
+			declare @action char(1) = 'I';
+			declare @IsDeleted char(1) = 'N';
+			declare @DeletedMessage char(25) = 'Rows has been deleted';
+			declare @SysStartTimeAsSysEnd datetime2;
+		   --
+			if (exists (select * from inserted) and exists (select * from deleted))
+			begin
+				set @action = 'U';
+				SELECT @SysStartTimeAsSysEnd = Inserted.SysStartTime FROM Inserted
+			end;
+			else if (exists (select * from deleted))
+			begin
+				set @action = 'D';
+				set @IsDeleted = 'Y';
+			end;
+			else
+				set @action = 'I';
+
+			if (@action <> 'I')
+				insert into Triggered.AuditTriggeredEmployeeHistory
+				(
+					AuditTriggeredEmployeeHistoryTimestamp
+				  , TriggerOption
+				  , EmployeeId
+				  , EmployeeFullName
+				  , Department
+				  , Salary
+				  , Notes
+				  , IsDeleted
+				  , TransactionNumber
+				  , UserAuthenticatedKey
+				  , TimestampRowChanged
+				  , SysStartTime
+				  , SysEndTime
+				)
+				select sysdatetime()       as AuditTriggeredEmployeeHistoryTimestamp
+					 , @action             as TriggerOption
+					 , EmployeeId
+					 , EmployeeFullName
+					 , Department
+					 , Salary
+					 , case
+						   when @action <> 'D' then
+							   Deleted.Notes
+						   else
+							   @DeletedMessage
+					   end
+					 , @IsDeleted          as IsDeleted
+					 , Deleted.TransactionNumber
+					 , UserAuthenticatedKey
+					 , TimestampRowChanged
+					 , Deleted.SysStartTime
+					 , case
+						   when @action <> 'D' then
+							  @SysStartTimeAsSysEnd
+						   else
+							   sysdatetime()
+					   end as SysEndTime
+				from Deleted;
+		end;
+
+ 
+go
+
+
+ENABLE TRIGGER [uTdu_AuditTriggeredEmployeeHistory] ON Employee
+go
+
+CREATE TRIGGER Sales.tD_Order ON Sales.Order FOR DELETE AS
+/* erwin Builtin Trigger */
+/* DELETE trigger on Order */
+BEGIN
+  DECLARE  @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+    /* erwin Builtin Trigger */
+    /* Sales.Order  Sales.OrderDetail on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="000529e7", PARENT_OWNER="Sales", PARENT_TABLE="Order"
+    CHILD_OWNER="Sales", CHILD_TABLE="OrderDetail"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_OrderDetail_Order", FK_COLUMNS="OrderId" */
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.OrderDetail
+      WHERE
+        /*  %JoinFKPK(Sales.OrderDetail,deleted," = "," AND") */
+        Sales.OrderDetail.OrderId = deleted.OrderId
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Sales.Order because Sales.OrderDetail exists.'
+      GOTO error
+    END
+
+    /* erwin Builtin Trigger */
+    /* Sales.Shipper  Sales.Order on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Sales", PARENT_TABLE="Shipper"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Shipper", FK_COLUMNS="ShipperId" */
+    IF EXISTS (SELECT * FROM deleted,Sales.Shipper
+      WHERE
+        /* %JoinFKPK(deleted,Sales.Shipper," = "," AND") */
+        deleted.ShipperId = Sales.Shipper.ShipperId AND
+        NOT EXISTS (
+          SELECT * FROM Sales.Order
+          WHERE
+            /* %JoinFKPK(Sales.Order,Sales.Shipper," = "," AND") */
+            Sales.Order.ShipperId = Sales.Shipper.ShipperId
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Sales.Order because Sales.Shipper exists.'
+      GOTO error
+    END
+
+    /* erwin Builtin Trigger */
+    /* HumanResources.Employee  Sales.Order on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="HumanResources", PARENT_TABLE="Employee"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Employee", FK_COLUMNS="EmployeeId" */
+    IF EXISTS (SELECT * FROM deleted,HumanResources.Employee
+      WHERE
+        /* %JoinFKPK(deleted,HumanResources.Employee," = "," AND") */
+        deleted.EmployeeId = HumanResources.Employee.EmployeeId AND
+        NOT EXISTS (
+          SELECT * FROM Sales.Order
+          WHERE
+            /* %JoinFKPK(Sales.Order,HumanResources.Employee," = "," AND") */
+            Sales.Order.EmployeeId = HumanResources.Employee.EmployeeId
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Sales.Order because HumanResources.Employee exists.'
+      GOTO error
+    END
+
+    /* erwin Builtin Trigger */
+    /* Sales.Customer  Sales.Order on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Sales", PARENT_TABLE="Customer"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Customer1", FK_COLUMNS="CustomerId" */
+    IF EXISTS (SELECT * FROM deleted,Sales.Customer
+      WHERE
+        /* %JoinFKPK(deleted,Sales.Customer," = "," AND") */
+        deleted.CustomerId = Sales.Customer.CustomerId AND
+        NOT EXISTS (
+          SELECT * FROM Sales.Order
+          WHERE
+            /* %JoinFKPK(Sales.Order,Sales.Customer," = "," AND") */
+            Sales.Order.CustomerId = Sales.Customer.CustomerId
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Sales.Order because Sales.Customer exists.'
+      GOTO error
+    END
+
+
+    /* erwin Builtin Trigger */
+    RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Sales.tU_Order ON Sales.Order FOR UPDATE AS
+/* erwin Builtin Trigger */
+/* UPDATE trigger on Order */
+BEGIN
+  DECLARE  @numrows int,
+           @nullcnt int,
+           @validcnt int,
+           @insOrderId dSurrogateKeyInt,
+           @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+
+  SELECT @numrows = @@rowcount
+  /* erwin Builtin Trigger */
+  /* Sales.Order  Sales.OrderDetail on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="0005ac5b", PARENT_OWNER="Sales", PARENT_TABLE="Order"
+    CHILD_OWNER="Sales", CHILD_TABLE="OrderDetail"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_OrderDetail_Order", FK_COLUMNS="OrderId" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(OrderId)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.OrderDetail
+      WHERE
+        /*  %JoinFKPK(Sales.OrderDetail,deleted," = "," AND") */
+        Sales.OrderDetail.OrderId = deleted.OrderId
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Sales.Order because Sales.OrderDetail exists.'
+      GOTO error
+    END
+  END
+
+  /* erwin Builtin Trigger */
+  /* Sales.Shipper  Sales.Order on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Sales", PARENT_TABLE="Shipper"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Shipper", FK_COLUMNS="ShipperId" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(ShipperId)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Sales.Shipper
+        WHERE
+          /* %JoinFKPK(inserted,Sales.Shipper) */
+          inserted.ShipperId = Sales.Shipper.ShipperId
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    
+    IF @validcnt + @nullcnt != @numrows
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Sales.Order because Sales.Shipper does not exist.'
+      GOTO error
+    END
+  END
+
+  /* erwin Builtin Trigger */
+  /* HumanResources.Employee  Sales.Order on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="HumanResources", PARENT_TABLE="Employee"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Employee", FK_COLUMNS="EmployeeId" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(EmployeeId)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,HumanResources.Employee
+        WHERE
+          /* %JoinFKPK(inserted,HumanResources.Employee) */
+          inserted.EmployeeId = HumanResources.Employee.EmployeeId
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    
+    IF @validcnt + @nullcnt != @numrows
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Sales.Order because HumanResources.Employee does not exist.'
+      GOTO error
+    END
+  END
+
+  /* erwin Builtin Trigger */
+  /* Sales.Customer  Sales.Order on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Sales", PARENT_TABLE="Customer"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Customer1", FK_COLUMNS="CustomerId" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(CustomerId)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Sales.Customer
+        WHERE
+          /* %JoinFKPK(inserted,Sales.Customer) */
+          inserted.CustomerId = Sales.Customer.CustomerId
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    select @nullcnt = count(*) from inserted where
+      inserted.CustomerId IS NULL
+    IF @validcnt + @nullcnt != @numrows
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Sales.Order because Sales.Customer does not exist.'
+      GOTO error
+    END
+  END
+
+
+  /* erwin Builtin Trigger */
+  RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Sales.tD_OrderDetail ON Sales.OrderDetail FOR DELETE AS
+/* erwin Builtin Trigger */
+/* DELETE trigger on OrderDetail */
+BEGIN
+  DECLARE  @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+    /* erwin Builtin Trigger */
+    /* Production.Product  Sales.OrderDetail on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="0002d352", PARENT_OWNER="Production", PARENT_TABLE="Product"
+    CHILD_OWNER="Sales", CHILD_TABLE="OrderDetail"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_OrderDetail_Product", FK_COLUMNS="ProductId" */
+    IF EXISTS (SELECT * FROM deleted,Production.Product
+      WHERE
+        /* %JoinFKPK(deleted,Production.Product," = "," AND") */
+        deleted.ProductId = Production.Product.ProductId AND
+        NOT EXISTS (
+          SELECT * FROM Sales.OrderDetail
+          WHERE
+            /* %JoinFKPK(Sales.OrderDetail,Production.Product," = "," AND") */
+            Sales.OrderDetail.ProductId = Production.Product.ProductId
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Sales.OrderDetail because Production.Product exists.'
+      GOTO error
+    END
+
+    /* erwin Builtin Trigger */
+    /* Sales.Order  Sales.OrderDetail on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Sales", PARENT_TABLE="Order"
+    CHILD_OWNER="Sales", CHILD_TABLE="OrderDetail"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_OrderDetail_Order", FK_COLUMNS="OrderId" */
+    IF EXISTS (SELECT * FROM deleted,Sales.Order
+      WHERE
+        /* %JoinFKPK(deleted,Sales.Order," = "," AND") */
+        deleted.OrderId = Sales.Order.OrderId AND
+        NOT EXISTS (
+          SELECT * FROM Sales.OrderDetail
+          WHERE
+            /* %JoinFKPK(Sales.OrderDetail,Sales.Order," = "," AND") */
+            Sales.OrderDetail.OrderId = Sales.Order.OrderId
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Sales.OrderDetail because Sales.Order exists.'
+      GOTO error
+    END
+
+
+    /* erwin Builtin Trigger */
+    RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Sales.tU_OrderDetail ON Sales.OrderDetail FOR UPDATE AS
+/* erwin Builtin Trigger */
+/* UPDATE trigger on OrderDetail */
+BEGIN
+  DECLARE  @numrows int,
+           @nullcnt int,
+           @validcnt int,
+           @insOrderId dSurrogateKeyInt, 
+           @insProductId dSurrogateKeyInt,
+           @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+
+  SELECT @numrows = @@rowcount
+  /* erwin Builtin Trigger */
+  /* Production.Product  Sales.OrderDetail on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="0002f2c5", PARENT_OWNER="Production", PARENT_TABLE="Product"
+    CHILD_OWNER="Sales", CHILD_TABLE="OrderDetail"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_OrderDetail_Product", FK_COLUMNS="ProductId" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(ProductId)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Production.Product
+        WHERE
+          /* %JoinFKPK(inserted,Production.Product) */
+          inserted.ProductId = Production.Product.ProductId
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    
+    IF @validcnt + @nullcnt != @numrows
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Sales.OrderDetail because Production.Product does not exist.'
+      GOTO error
+    END
+  END
+
+  /* erwin Builtin Trigger */
+  /* Sales.Order  Sales.OrderDetail on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Sales", PARENT_TABLE="Order"
+    CHILD_OWNER="Sales", CHILD_TABLE="OrderDetail"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_OrderDetail_Order", FK_COLUMNS="OrderId" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(OrderId)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Sales.Order
+        WHERE
+          /* %JoinFKPK(inserted,Sales.Order) */
+          inserted.OrderId = Sales.Order.OrderId
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    
+    IF @validcnt + @nullcnt != @numrows
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Sales.OrderDetail because Sales.Order does not exist.'
+      GOTO error
+    END
+  END
+
+
+  /* erwin Builtin Trigger */
+  RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Sales.tD_Customer ON Sales.Customer FOR DELETE AS
+/* erwin Builtin Trigger */
+/* DELETE trigger on Customer */
+BEGIN
+  DECLARE  @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+    /* erwin Builtin Trigger */
+    /* Sales.Customer  Sales.Order on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00012014", PARENT_OWNER="Sales", PARENT_TABLE="Customer"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Customer1", FK_COLUMNS="CustomerId" */
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.Order
+      WHERE
+        /*  %JoinFKPK(Sales.Order,deleted," = "," AND") */
+        Sales.Order.CustomerId = deleted.CustomerId
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Sales.Customer because Sales.Order exists.'
+      GOTO error
+    END
+
+
+    /* erwin Builtin Trigger */
+    RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Sales.tU_Customer ON Sales.Customer FOR UPDATE AS
+/* erwin Builtin Trigger */
+/* UPDATE trigger on Customer */
+BEGIN
+  DECLARE  @numrows int,
+           @nullcnt int,
+           @validcnt int,
+           @insCustomerId dSurrogateKeyInt,
+           @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+
+  SELECT @numrows = @@rowcount
+  /* erwin Builtin Trigger */
+  /* Sales.Customer  Sales.Order on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="00013deb", PARENT_OWNER="Sales", PARENT_TABLE="Customer"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Customer1", FK_COLUMNS="CustomerId" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(CustomerId)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.Order
+      WHERE
+        /*  %JoinFKPK(Sales.Order,deleted," = "," AND") */
+        Sales.Order.CustomerId = deleted.CustomerId
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Sales.Customer because Sales.Order exists.'
+      GOTO error
+    END
+  END
+
+
+  /* erwin Builtin Trigger */
+  RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Sales.tD_Shipper ON Sales.Shipper FOR DELETE AS
+/* erwin Builtin Trigger */
+/* DELETE trigger on Shipper */
+BEGIN
+  DECLARE  @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+    /* erwin Builtin Trigger */
+    /* Sales.Shipper  Sales.Order on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00011722", PARENT_OWNER="Sales", PARENT_TABLE="Shipper"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Shipper", FK_COLUMNS="ShipperId" */
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.Order
+      WHERE
+        /*  %JoinFKPK(Sales.Order,deleted," = "," AND") */
+        Sales.Order.ShipperId = deleted.ShipperId
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Sales.Shipper because Sales.Order exists.'
+      GOTO error
+    END
+
+
+    /* erwin Builtin Trigger */
+    RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Sales.tU_Shipper ON Sales.Shipper FOR UPDATE AS
+/* erwin Builtin Trigger */
+/* UPDATE trigger on Shipper */
+BEGIN
+  DECLARE  @numrows int,
+           @nullcnt int,
+           @validcnt int,
+           @insShipperId dSurrogateKeyInt,
+           @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+
+  SELECT @numrows = @@rowcount
+  /* erwin Builtin Trigger */
+  /* Sales.Shipper  Sales.Order on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="000139a3", PARENT_OWNER="Sales", PARENT_TABLE="Shipper"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Shipper", FK_COLUMNS="ShipperId" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(ShipperId)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.Order
+      WHERE
+        /*  %JoinFKPK(Sales.Order,deleted," = "," AND") */
+        Sales.Order.ShipperId = deleted.ShipperId
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Sales.Shipper because Sales.Order exists.'
+      GOTO error
+    END
+  END
+
+
+  /* erwin Builtin Trigger */
+  RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER HumanResources.tD_Employee ON HumanResources.Employee FOR DELETE AS
+/* erwin Builtin Trigger */
+/* DELETE trigger on Employee */
+BEGIN
+  DECLARE  @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+    /* erwin Builtin Trigger */
+    /* HumanResources.Employee  HumanResources.Employee on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="0003fd50", PARENT_OWNER="HumanResources", PARENT_TABLE="Employee"
+    CHILD_OWNER="HumanResources", CHILD_TABLE="Employee"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Employees_Employees", FK_COLUMNS="EmployeeManagerId" */
+    IF EXISTS (
+      SELECT * FROM deleted,HumanResources.Employee
+      WHERE
+        /*  %JoinFKPK(HumanResources.Employee,deleted," = "," AND") */
+        HumanResources.Employee.EmployeeManagerId = deleted.EmployeeId
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete HumanResources.Employee because HumanResources.Employee exists.'
+      GOTO error
+    END
+
+    /* erwin Builtin Trigger */
+    /* HumanResources.Employee  Sales.Order on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="HumanResources", PARENT_TABLE="Employee"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Employee", FK_COLUMNS="EmployeeId" */
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.Order
+      WHERE
+        /*  %JoinFKPK(Sales.Order,deleted," = "," AND") */
+        Sales.Order.EmployeeId = deleted.EmployeeId
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete HumanResources.Employee because Sales.Order exists.'
+      GOTO error
+    END
+
+    /* erwin Builtin Trigger */
+    /* HumanResources.Employee  HumanResources.Employee on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="HumanResources", PARENT_TABLE="Employee"
+    CHILD_OWNER="HumanResources", CHILD_TABLE="Employee"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Employees_Employees", FK_COLUMNS="EmployeeManagerId" */
+    IF EXISTS (SELECT * FROM deleted,HumanResources.Employee
+      WHERE
+        /* %JoinFKPK(deleted,HumanResources.Employee," = "," AND") */
+        deleted.EmployeeManagerId = HumanResources.Employee.EmployeeId AND
+        NOT EXISTS (
+          SELECT * FROM HumanResources.Employee
+          WHERE
+            /* %JoinFKPK(HumanResources.Employee,HumanResources.Employee," = "," AND") */
+            HumanResources.Employee.EmployeeManagerId = HumanResources.Employee.EmployeeId
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last HumanResources.Employee because HumanResources.Employee exists.'
+      GOTO error
+    END
+
+
+    /* erwin Builtin Trigger */
+    RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER HumanResources.tU_Employee ON HumanResources.Employee FOR UPDATE AS
+/* erwin Builtin Trigger */
+/* UPDATE trigger on Employee */
+BEGIN
+  DECLARE  @numrows int,
+           @nullcnt int,
+           @validcnt int,
+           @insEmployeeId dSurrogateKeyInt,
+           @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+
+  SELECT @numrows = @@rowcount
+  /* erwin Builtin Trigger */
+  /* HumanResources.Employee  HumanResources.Employee on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="000461f0", PARENT_OWNER="HumanResources", PARENT_TABLE="Employee"
+    CHILD_OWNER="HumanResources", CHILD_TABLE="Employee"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Employees_Employees", FK_COLUMNS="EmployeeManagerId" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(EmployeeId)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,HumanResources.Employee
+      WHERE
+        /*  %JoinFKPK(HumanResources.Employee,deleted," = "," AND") */
+        HumanResources.Employee.EmployeeManagerId = deleted.EmployeeId
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update HumanResources.Employee because HumanResources.Employee exists.'
+      GOTO error
+    END
+  END
+
+  /* erwin Builtin Trigger */
+  /* HumanResources.Employee  Sales.Order on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="HumanResources", PARENT_TABLE="Employee"
+    CHILD_OWNER="Sales", CHILD_TABLE="Order"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Order_Employee", FK_COLUMNS="EmployeeId" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(EmployeeId)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.Order
+      WHERE
+        /*  %JoinFKPK(Sales.Order,deleted," = "," AND") */
+        Sales.Order.EmployeeId = deleted.EmployeeId
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update HumanResources.Employee because Sales.Order exists.'
+      GOTO error
+    END
+  END
+
+  /* erwin Builtin Trigger */
+  /* HumanResources.Employee  HumanResources.Employee on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="HumanResources", PARENT_TABLE="Employee"
+    CHILD_OWNER="HumanResources", CHILD_TABLE="Employee"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Employees_Employees", FK_COLUMNS="EmployeeManagerId" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(EmployeeManagerId)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,HumanResources.Employee
+        WHERE
+          /* %JoinFKPK(inserted,HumanResources.Employee) */
+          inserted.EmployeeManagerId = HumanResources.Employee.EmployeeId
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    select @nullcnt = count(*) from inserted where
+      inserted.EmployeeManagerId IS NULL
+    IF @validcnt + @nullcnt != @numrows
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update HumanResources.Employee because HumanResources.Employee does not exist.'
+      GOTO error
+    END
+  END
+
+
+  /* erwin Builtin Trigger */
+  RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Production.tD_Product ON Production.Product FOR DELETE AS
+/* erwin Builtin Trigger */
+/* DELETE trigger on Product */
+BEGIN
+  DECLARE  @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+    /* erwin Builtin Trigger */
+    /* Production.Product  Sales.OrderDetail on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00040d95", PARENT_OWNER="Production", PARENT_TABLE="Product"
+    CHILD_OWNER="Sales", CHILD_TABLE="OrderDetail"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_OrderDetail_Product", FK_COLUMNS="ProductId" */
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.OrderDetail
+      WHERE
+        /*  %JoinFKPK(Sales.OrderDetail,deleted," = "," AND") */
+        Sales.OrderDetail.ProductId = deleted.ProductId
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Production.Product because Sales.OrderDetail exists.'
+      GOTO error
+    END
+
+    /* erwin Builtin Trigger */
+    /* Production.Supplier  Production.Product on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Production", PARENT_TABLE="Supplier"
+    CHILD_OWNER="Production", CHILD_TABLE="Product"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_product_supplier", FK_COLUMNS="SupplierId" */
+    IF EXISTS (SELECT * FROM deleted,Production.Supplier
+      WHERE
+        /* %JoinFKPK(deleted,Production.Supplier," = "," AND") */
+        deleted.SupplierId = Production.Supplier.SupplierId AND
+        NOT EXISTS (
+          SELECT * FROM Production.Product
+          WHERE
+            /* %JoinFKPK(Production.Product,Production.Supplier," = "," AND") */
+            Production.Product.SupplierId = Production.Supplier.SupplierId
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Production.Product because Production.Supplier exists.'
+      GOTO error
+    END
+
+    /* erwin Builtin Trigger */
+    /* Production.Category  Production.Product on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Production", PARENT_TABLE="Category"
+    CHILD_OWNER="Production", CHILD_TABLE="Product"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Product_Category", FK_COLUMNS="CategoryId" */
+    IF EXISTS (SELECT * FROM deleted,Production.Category
+      WHERE
+        /* %JoinFKPK(deleted,Production.Category," = "," AND") */
+        deleted.CategoryId = Production.Category.CategoryId AND
+        NOT EXISTS (
+          SELECT * FROM Production.Product
+          WHERE
+            /* %JoinFKPK(Production.Product,Production.Category," = "," AND") */
+            Production.Product.CategoryId = Production.Category.CategoryId
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Production.Product because Production.Category exists.'
+      GOTO error
+    END
+
+
+    /* erwin Builtin Trigger */
+    RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Production.tU_Product ON Production.Product FOR UPDATE AS
+/* erwin Builtin Trigger */
+/* UPDATE trigger on Product */
+BEGIN
+  DECLARE  @numrows int,
+           @nullcnt int,
+           @validcnt int,
+           @insProductId dSurrogateKeyInt,
+           @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+
+  SELECT @numrows = @@rowcount
+  /* erwin Builtin Trigger */
+  /* Production.Product  Sales.OrderDetail on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="000450c5", PARENT_OWNER="Production", PARENT_TABLE="Product"
+    CHILD_OWNER="Sales", CHILD_TABLE="OrderDetail"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_OrderDetail_Product", FK_COLUMNS="ProductId" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(ProductId)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Sales.OrderDetail
+      WHERE
+        /*  %JoinFKPK(Sales.OrderDetail,deleted," = "," AND") */
+        Sales.OrderDetail.ProductId = deleted.ProductId
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Production.Product because Sales.OrderDetail exists.'
+      GOTO error
+    END
+  END
+
+  /* erwin Builtin Trigger */
+  /* Production.Supplier  Production.Product on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Production", PARENT_TABLE="Supplier"
+    CHILD_OWNER="Production", CHILD_TABLE="Product"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_product_supplier", FK_COLUMNS="SupplierId" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(SupplierId)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Production.Supplier
+        WHERE
+          /* %JoinFKPK(inserted,Production.Supplier) */
+          inserted.SupplierId = Production.Supplier.SupplierId
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    
+    IF @validcnt + @nullcnt != @numrows
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Production.Product because Production.Supplier does not exist.'
+      GOTO error
+    END
+  END
+
+  /* erwin Builtin Trigger */
+  /* Production.Category  Production.Product on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="Production", PARENT_TABLE="Category"
+    CHILD_OWNER="Production", CHILD_TABLE="Product"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Product_Category", FK_COLUMNS="CategoryId" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(CategoryId)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Production.Category
+        WHERE
+          /* %JoinFKPK(inserted,Production.Category) */
+          inserted.CategoryId = Production.Category.CategoryId
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    
+    IF @validcnt + @nullcnt != @numrows
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Production.Product because Production.Category does not exist.'
+      GOTO error
+    END
+  END
+
+
+  /* erwin Builtin Trigger */
+  RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Production.tD_Supplier ON Production.Supplier FOR DELETE AS
+/* erwin Builtin Trigger */
+/* DELETE trigger on Supplier */
+BEGIN
+  DECLARE  @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+    /* erwin Builtin Trigger */
+    /* Production.Supplier  Production.Product on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="000136d7", PARENT_OWNER="Production", PARENT_TABLE="Supplier"
+    CHILD_OWNER="Production", CHILD_TABLE="Product"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_product_supplier", FK_COLUMNS="SupplierId" */
+    IF EXISTS (
+      SELECT * FROM deleted,Production.Product
+      WHERE
+        /*  %JoinFKPK(Production.Product,deleted," = "," AND") */
+        Production.Product.SupplierId = deleted.SupplierId
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Production.Supplier because Production.Product exists.'
+      GOTO error
+    END
+
+
+    /* erwin Builtin Trigger */
+    RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Production.tU_Supplier ON Production.Supplier FOR UPDATE AS
+/* erwin Builtin Trigger */
+/* UPDATE trigger on Supplier */
+BEGIN
+  DECLARE  @numrows int,
+           @nullcnt int,
+           @validcnt int,
+           @insSupplierId dSurrogateKeyInt,
+           @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+
+  SELECT @numrows = @@rowcount
+  /* erwin Builtin Trigger */
+  /* Production.Supplier  Production.Product on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="00014e39", PARENT_OWNER="Production", PARENT_TABLE="Supplier"
+    CHILD_OWNER="Production", CHILD_TABLE="Product"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_product_supplier", FK_COLUMNS="SupplierId" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(SupplierId)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Production.Product
+      WHERE
+        /*  %JoinFKPK(Production.Product,deleted," = "," AND") */
+        Production.Product.SupplierId = deleted.SupplierId
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Production.Supplier because Production.Product exists.'
+      GOTO error
+    END
+  END
+
+
+  /* erwin Builtin Trigger */
+  RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Production.tD_Category ON Production.Category FOR DELETE AS
+/* erwin Builtin Trigger */
+/* DELETE trigger on Category */
+BEGIN
+  DECLARE  @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+    /* erwin Builtin Trigger */
+    /* Production.Category  Production.Product on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="000135d0", PARENT_OWNER="Production", PARENT_TABLE="Category"
+    CHILD_OWNER="Production", CHILD_TABLE="Product"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Product_Category", FK_COLUMNS="CategoryId" */
+    IF EXISTS (
+      SELECT * FROM deleted,Production.Product
+      WHERE
+        /*  %JoinFKPK(Production.Product,deleted," = "," AND") */
+        Production.Product.CategoryId = deleted.CategoryId
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Production.Category because Production.Product exists.'
+      GOTO error
+    END
+
+
+    /* erwin Builtin Trigger */
+    RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER Production.tU_Category ON Production.Category FOR UPDATE AS
+/* erwin Builtin Trigger */
+/* UPDATE trigger on Category */
+BEGIN
+  DECLARE  @numrows int,
+           @nullcnt int,
+           @validcnt int,
+           @insCategoryId dSurrogateKeyInt,
+           @errno   int,
+           @severity int,
+           @state    int,
+           @errmsg  varchar(255)
+
+  SELECT @numrows = @@rowcount
+  /* erwin Builtin Trigger */
+  /* Production.Category  Production.Product on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="00015552", PARENT_OWNER="Production", PARENT_TABLE="Category"
+    CHILD_OWNER="Production", CHILD_TABLE="Product"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="FK_Product_Category", FK_COLUMNS="CategoryId" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(CategoryId)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Production.Product
+      WHERE
+        /*  %JoinFKPK(Production.Product,deleted," = "," AND") */
+        Production.Product.CategoryId = deleted.CategoryId
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Production.Category because Production.Product exists.'
+      GOTO error
+    END
+  END
+
+
+  /* erwin Builtin Trigger */
+  RETURN
+error:
+   RAISERROR (@errmsg, -- Message text.
+              @severity, -- Severity (0~25).
+              @state) -- State (0~255).
+    rollback transaction
+END
+
+go
+
+
+
