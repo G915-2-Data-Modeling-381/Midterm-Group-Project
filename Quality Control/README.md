@@ -19,50 +19,76 @@ Each person's UDTs are examined based on number of recurrances. Tried to keep th
 #### dStrings (Has the most duplicates)
 
 **sdName** 
+
 (+) Updated AG: sdName to sdNameStrings
+
 (-) Removed WL: sdNameString_WL , udtName_WL
+
 (-) Removed AN: sdName_AN
 
 **sdAddressString**
+
 (+) Keep AN: udtAddressLine , udtPostalCode, udtState
+
 (+) Keep WL: udtCity, udtRegion
+
 (+) Keep AG: udtCountry
+
 (>) Move WL/AG: udtCity, udtRegion, udtCountry --> sdAddressString_AN
+
 (-) Remove AN / WL / AG: All other types under respective sdAddressStrings that contest with the above (Anything under sdAddresString_AN, sdAddressString_WL, or sdLocation_AG)
 
 **sdTitle**
+
 (>) Move AG: udtTitle_AG --> sdTitle_JG
+
 (~) Rename AG: udtTitle_AG --> udtTitleOfCourtesy_AG
 
 **sdContactNumber**
+
 (>) Move AN: udtPhoneNumber_AN --> sdContactNumber_AG
+
 (-) Remove AN: Constraint CK_TimeStamp_AN, incorect typing
+
 (-) Remove AG: udtPhoneNumber_AG
+
 (-) Remove WL: udtPhone_WL
 
 REQUEST: Add AG defaults, modify Wade Constraint for phone numbers to add onto udtPhoneNumber_AN. Maybe add data type for area code (+#) number extension on Phone.
 
 **sdFlagCharacter**
+
 (~) Rename JG: sdFlagCharacterString_JG --> sdFlagCharacter_JG
+
 (>) Move WL: udtFlag_WL --> sdFlagCharacter_JG
+
 (~) Rename WL: udtFlag_WL --> udtYesNoFlag_WL
 
 **sdMiscellanousStrings**
+
 (~) Add AG: sdMiscellanousStrings_AG
+
 (>) Move WL: udtNotes_WL --> sdMiscellanousStrings
+
 (>) Move AN: udtClassTime_AN --> sdMiscellanousStrings
 
 #### dDateTime
+
 (-) Remove JG: sdDateDatetime_JG, udtYearMonthDay_JG, udtTimeStampNow_JG
+
 (-) Remove AG: sdSystemDateTime_AG, udtDateAdded_AG
+
 (-) Remove WL: udtAuditTriggeredTimestamp_WL
+
 (+) Add AG: sdAuditSysTime_AG
+
 (>) Move WL: udtAuditTriggeredTimestamp_WL, udtSysEnd_WL, udtSysStart_WL
 
 
 ---
 
 ### Old Domain List
+
 dGroupMiterm
 dBlob
 dString
