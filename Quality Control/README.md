@@ -1,9 +1,9 @@
-### Quality Control
+### Domain Quality Control
 *Handled by Amber Garcia*
 
 ---
 
-#### Additional Steps Taken Towards Quality Control
+#### Additional Steps Taken Towards Domain Quality Control
 - [ ] Add the proper user initials to all existing UDTs, save as ALPHA state before proceeding with removal of UDT
 
 - [ ] Count UDTs (list is at bottom of file), 71 total
@@ -212,3 +212,27 @@ udtDay_AG
 udtFirstName_AG
 udtBirthDate_AG
 udtYear_AG
+
+### Domain Quality Control
+*Handled by Amber Garcia*
+
+---
+
+### Default Quality Control
+
+Old Defaults:
+
+![image](https://user-images.githubusercontent.com/77137171/201216174-f25b284f-d8a6-48cd-bc1b-fd0a99eb24cc.png)
+
+New Defaults:
+
+![image](https://user-images.githubusercontent.com/77137171/201216397-3b1ecc49-b7f1-4ee5-83b8-583d993c9bb8.png)
+
+
+Removed:
+
+![image](https://user-images.githubusercontent.com/77137171/201216464-ddfd074f-3b57-49c8-8850-2f5a1c4aa9b8.png)
+![image](https://user-images.githubusercontent.com/77137171/201216495-0396eedf-856c-42a5-889e-6c4cbafaa0bb.png)
+
+
+
