@@ -213,12 +213,14 @@ udtFirstName_AG
 udtBirthDate_AG
 udtYear_AG
 
-### Domain Quality Control
-*Handled by Amber Garcia*
-
 ---
 
 ### Default Quality Control
+
+- [ ] Changed description names
+- [ ] Switched to DFT_ for naming convention
+- [ ] Removed unused DFT
+
 
 Old Defaults:
 
@@ -234,5 +236,18 @@ Removed:
 ![image](https://user-images.githubusercontent.com/77137171/201216464-ddfd074f-3b57-49c8-8850-2f5a1c4aa9b8.png)
 ![image](https://user-images.githubusercontent.com/77137171/201216495-0396eedf-856c-42a5-889e-6c4cbafaa0bb.png)
 
+---
 
+### Validation Quality Control
+
+- [ ] All entities changed to have initials of creator and CHK_ at the front.
+- [ ] Changed description names
+
+OLD VERSION:
+
+![image](https://user-images.githubusercontent.com/77137171/201219955-57a02eea-2ddf-4dae-b7b8-1535ca99ba48.png)
+
+NEW VERSION:
+
+![image](https://user-images.githubusercontent.com/77137171/201219986-56e68367-055f-4ff2-8fd7-90730b95da0a.png)
 
