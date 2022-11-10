@@ -1,5 +1,13 @@
-### Domain Quality Control
+## Quality Control of Merged Work
+
 *Handled by Amber Garcia*
+
+Table of Contents:
+
+- Domain Quality Control
+- Default Quality Control
+- Validation Quality Control
+
 
 Important Note:
 
@@ -7,6 +15,8 @@ In the most recent version of FinalQualityControl, none of the data stored withi
 
 
 ---
+
+### Domain Quality Control
 
 #### Additional Steps Taken Towards Domain Quality Control
 - [ ] Add the proper user initials to all existing UDTs, save as ALPHA state before proceeding with removal of UDT
