@@ -1,0 +1,56 @@
+﻿ERwin Property Ids,1075850516::User Formatted Name  [read only],0::Object Type  [read only],1073742126::Name,1075848978::Type,1075849056::Physical Data Type,1075849062::Null Option,1075849176::Physical Name,1075849452::Domain Parent,1075850516::User Formatted Name  [read only]
+1075838983::32,<root>,Domain,<root>,<Root>,,Null,_root_,,<root>
+1075838983::33,<default>,Domain,<default>,<Default>,char(18),Null,_default_,_root_,<default>
+1075838983::34,String,Domain,String,String,varchar(20),Null,String,_default_,String
+1075838983::35,Number,Domain,Number,Number,integer,Null,Number,_default_,Number
+1075838983::36,Datetime,Domain,Datetime,DateTime,datetime,Null,Datetime,_default_,Datetime
+1075838983::37,Blob,Domain,Blob,Blob,varbinary,Null,Blob,_default_,Blob
+1075838983::1285,dGroupMiterm,Domain,dGroupMiterm,<Regular Domain>,char(1),Null,dGroupMiterm,_default_,dGroupMiterm
+1075838983::1286,dBlob,Domain,dBlob,<Regular Domain>,char(1),Null,dBlob,dGroupMiterm,dBlob
+1075838983::1288,dString,Domain,dString,<Regular Domain>,char(1),Null,dString,dGroupMiterm,dString
+1075838983::1289,dNumber,Domain,dNumber,<Regular Domain>,integer,Null,dNumber,dGroupMiterm,dNumber
+1075838983::1290,dDateTime,Domain,dDateTime,<Regular Domain>,datetime,Null,dDateTime,dGroupMiterm,dDateTime
+1075838983::1361,sdFlagCharacterString,Domain,sdFlagCharacterString,<Regular Domain>,char(1),Null,sdFlagCharacter_JG,dString,sdFlagCharacterString
+1075838983::1362,sdIntegerNumber_JG,Domain,sdIntegerNumber_JG,<Regular Domain>,integer,Null,sdIntegerNumber_JG,dNumber,sdIntegerNumber_JG
+1075838983::1363,sdPositiveIntegerNumber_JG,Domain,sdPositiveIntegerNumber_JG,<Regular Domain>,integer,Null,sdPositiveIntegerNumber_JG,sdIntegerNumber_JG,sdPositiveIntegerNumber_JG
+1075838983::1367,sdKeyIntegerNumber_JG,Domain,sdKeyIntegerNumber_JG,<Regular Domain>,integer,Null,sdKeyIntegerNumber_JG,sdPositiveIntegerNumber_JG,sdKeyIntegerNumber_JG
+1075838983::1370,sdMoneyNumber_JG,Domain,sdMoneyNumber_JG,<Regular Domain>,money,Null,sdMoneyNumber_JG,dNumber,sdMoneyNumber_JG
+1075838983::1371,sdNanosecondPreciseDatetime_JG,Domain,sdNanosecondPreciseDatetime_JG,<Regular Domain>,datetime,Null,sdNanosecondPreciseDatetime_JG,dDateTime,sdNanosecondPreciseDatetime_JG
+1075838983::1375,sdTitleString_JG,Domain,sdTitleString_JG,<Regular Domain>,char(1),Null,sdTitleString_JG,dString,sdTitleString_JG
+1075838983::1378,udtContactTitle_JG,Domain,udtContactTitle_JG,<Regular Domain>,nvarchar(60),Null,udtContactTitle_JG,sdTitleString_JG,udtContactTitle_JG
+1075838983::1381,udtCurrency_JG,Domain,udtCurrency_JG,<Regular Domain>,money,Null,udtCurrency_JG,sdMoneyNumber_JG,udtCurrency_JG
+1075838983::1385,udtGrade_JG,Domain,udtGrade_JG,<Regular Domain>,integer,Null,udtGrade_JG,sdPositiveIntegerNumber_JG,udtGrade_JG
+1075838983::1390,udtSequenceNumber_JG,Domain,udtSequenceNumber_JG,<Regular Domain>,integer,Not Null,udtSequenceNumber_JG,sdIntegerNumber_JG,udtSequenceNumber_JG
+1075838983::1391,udtSurrogateKeyInteger_JG,Domain,udtSurrogateKeyInteger_JG,<Regular Domain>,integer,Null,udtSurrogateKeyInteger_JG,sdKeyIntegerNumber_JG,udtSurrogateKeyInteger_JG
+1075838983::1398,udtTriggerOption_JG,Domain,udtTriggerOption_JG,<Regular Domain>,char(1),Null,udtTriggerOption_JG,sdFlagCharacter_JG,udtTriggerOption_JG
+1075838983::1413,sdAddressString_AN,Domain,sdAddressString_AN,<Regular Domain>,char(1),Null,sdAddressString_AN,dString,sdAddressString_AN
+1075838983::1414,udtAddressLine_AN,Domain,udtAddressLine_AN,<Regular Domain>,char(35),Null,udtAddressLine_AN,sdAddressString_AN,udtAddressLine_AN
+1075838983::1420,udtClassTime_AN,Domain,udtClassTime_AN,<Regular Domain>,char(5),Null,udtClassTime_AN,sdMiscellanousStrings_AG,udtClassTime_AN
+1075838983::1431,udtPhoneNumber_AN,Domain,udtPhoneNumber_AN,<Regular Domain>,char(14),Null,udtPhoneNumber_AN,sdContactNumber_AG,udtPhoneNumber_AN
+1075838983::1434,udtPostalCode_AN,Domain,udtPostalCode_AN,<Regular Domain>,char(5),Null,udtPostalCode_AN,sdAddressString_AN,udtPostalCode_AN
+1075838983::1438,udtState_AN,Domain,udtState_AN,<Regular Domain>,char(2),Null,udtState_AN,sdAddressString_AN,udtState_AN
+1075838983::1440,udtTimeStamp_AN,Domain,udtTimeStamp_AN,<Regular Domain>,Datetime2,Null,udtTimeStamp_AN,sdNanosecondPreciseDatetime_JG,udtTimeStamp_AN
+1075838983::1450,udtAuditTriggeredTimestamp_WL,Domain,udtAuditTriggeredTimestamp_WL,<Regular Domain>,datetime2(7),Not Null,udtAuditTriggeredTimestamp_WL,sdAuditSysTime_AG,udtAuditTriggeredTimestamp_WL
+1075838983::1455,udtCity_WL,Domain,udtCity_WL,<Regular Domain>,nvarchar(20),Null,udtCity_WL,sdAddressString_AN,udtCity_WL
+1075838983::1458,udtNotes_WL,Domain,udtNotes_WL,<Regular Domain>,nvarchar(300),Null,udtNotes_WL,sdMiscellanousStrings_AG,udtNotes_WL
+1075838983::1463,udtQuantity_WL,Domain,udtQuantity_WL,<Regular Domain>,integer,Not Null,udtQuantity_WL,dNumber,udtQuantity_WL
+1075838983::1469,udtSysEnd_WL,Domain,udtSysEnd_WL,<Regular Domain>,datetime2(7),Not Null,udtSysEnd_WL,sdAuditSysTime_AG,udtSysEnd_WL
+1075838983::1473,udtSysStart_WL,Domain,udtSysStart_WL,<Regular Domain>,datetime2(7),Not Null,udtSysStart_WL,sdAuditSysTime_AG,udtSysStart_WL
+1075838983::1477,udtUnitPrice_WL,Domain,udtUnitPrice_WL,<Regular Domain>,integer,Not Null,udtUnitPrice_WL,dNumber,udtUnitPrice_WL
+1075838983::1485,udtFlag_WL,Domain,udtFlag_WL,<Regular Domain>,char(1),Not Null,udtYesNoFlag_WL,sdFlagCharacter_JG,udtFlag_WL
+1075838983::1502,sdContactNumber_AG,Domain,sdContactNumber_AG,<Regular Domain>,char(14),Null,sdContactNumber_AG,dString,sdContactNumber_AG
+1075838983::1505,sdNameString_AG,Domain,sdNameString_AG,<Regular Domain>,char(1),Null,sdNameString_AG,dString,sdNameString_AG
+1075838983::1516,udtCompanyName_AG,Domain,udtCompanyName_AG,<Regular Domain>,nvarchar(60),Null,udtCompanyName_AG,sdNameString_AG,udtCompanyName_AG
+1075838983::1518,udtCountry_AG,Domain,udtCountry_AG,<Regular Domain>,char(3),Null,udtCountry_AG,sdAddressString_AN,udtCountry_AG
+1075838983::1525,udtFaxNumber_AG,Domain,udtFaxNumber_AG,<Regular Domain>,char(14),Null,udtFaxNumber_AG,sdContactNumber_AG,udtFaxNumber_AG
+1075838983::1527,udtFullName_AG,Domain,udtFullName_AG,<Regular Domain>,nvarchar(50),Null,udtFullName_AG,sdNameString_AG,udtFullName_AG
+1075838983::1535,udtTitleOfCourtesy_AG,Domain,udtTitleOfCourtesy_AG,<Regular Domain>,char(4),Null,udtTitleOfCourtesy_AG,sdTitleString_JG,udtTitleOfCourtesy_AG
+1075838983::1540,udtRegion_AG,Domain,udtRegion_AG,<Regular Domain>,nvarchar(40),Null,udtRegion_AG,sdAddressString_AN,udtRegion_AG
+1075838983::1547,udtLastName_AG,Domain,udtLastName_AG,<Regular Domain>,nvarchar(25),Null,udtLastName_AG,sdNameString_AG,udtLastName_AG
+1075838983::1549,sdYearMonthDay_AG,Domain,sdYearMonthDay_AG,<Regular Domain>,date,Null,sdYearMonthDay_AG,dDateTime,sdYearMonthDay_AG
+1075838983::1550,udtHireDate_AG,Domain,udtHireDate_AG,<Regular Domain>,date,Null,udtHireDate_AG,sdYearMonthDay_AG,udtHireDate_AG
+1075838983::1553,udtMonth_AG,Domain,udtMonth_AG,<Regular Domain>,char(2),Null,udtMonth_AG,sdYearMonthDay_AG,udtMonth_AG
+1075838983::1556,udtDay_AG,Domain,udtDay_AG,<Regular Domain>,char(2),Null,udtDay_AG,sdYearMonthDay_AG,udtDay_AG
+1075838983::1559,udtFirstName_AG,Domain,udtFirstName_AG,<Regular Domain>,nvarchar(25),Null,udtFirstName_AG,sdNameString_AG,udtFirstName_AG
+1075838983::1561,udtBirthDate_AG,Domain,udtBirthDate_AG,<Regular Domain>,date,Null,udtBirthDate_AG,sdYearMonthDay_AG,udtBirthDate_AG
+1075838983::1563,udtYear_AG,Domain,udtYear_AG,<Regular Domain>,char(4),Null,udtYear_AG,sdYearMonthDay_AG,udtYear_AG
