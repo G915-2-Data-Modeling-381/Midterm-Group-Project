@@ -1,0 +1,10 @@
+ERwin Property Ids,1075850516::User Formatted Name  [read only],0::Object Type  [read only],1075849176::Physical Name,1073742126::Name,1075848978::Type,1075848986::Value,1075849001::Min,1075849002::Max,1073742125::Definition
+"1075839020::1363","CHK_dDateTime_sdSystemDateTime",Validation Rule,"CHK_dDateTime_sdSystemDateTime","CHK_dDateTime_sdSystemDateTime","MinMax"," BETWEEN '19000101 00:00:00' AND '99991231 23:59:59'","19000101 00:00:00","99991231 23:59:59",""
+"1075839020::1365","CHK_dDateTime",Validation Rule,"CHK_dDateTime_sdYearMonthDay_udtBirthDate","CHK_dDateTime","MinMax"," BETWEEN '19000101' AND CONVERT(date,sysdatetime())","'19000101'","CONVERT(date,sysdatetime())",""
+"1075839020::1366","Validation_Rule_1366",Validation Rule,"CHK_dDateTime_sdYearMonthDay_udtHireDate","Validation_Rule_1366","MinMax"," BETWEEN '19000101' AND CONVERT(date,sysdatetime())","'19000101'","CONVERT(date,sysdatetime())",""
+"1075839020::1390","CHK_dString_sdName",Validation Rule,"CHK_dString_sdName","CHK_dString_sdName","User-Defined","[] like '[A-Z]%'","","",""
+"1075839020::1391","CHK_dString_sdFullName",Validation Rule,"CHK_dString_sdFullName","CHK_dString_sdFullName","User-Defined","[] like '[A-Z]% [A-Z]%'","","",""
+"1075839020::1392","CHK_dString_sdName_udtTitle",Validation Rule,"CHK_dString_sdName_udtTitleOfCourtesy","CHK_dString_sdName_udtTitle","User-Defined","[]='Mr.' OR []='Ms.' OR []='Mrs.' OR []='Dr.' OR []='Jr.'","","",""
+"1075839020::1393","CHK_dString_sdLocation_udtCountry",Validation Rule,"CHK_dString_sdLocation_udtCountry","CHK_dString_sdLocation_udtCountry","User-Defined","[] like '[A-Z][A-Z][A-Z]'","","",""
+"1075839020::1394","CHK_dString_sdLocation_udtState",Validation Rule,"CHK_dString_sdLocation_udtState","CHK_dString_sdLocation_udtState","User-Defined","[] like '[A-Z][A-Z]'","","",""
+"1075839020::1396","CHK_dString_sdLocation_udtAddress",Validation Rule,"CHK_dString_sdLocation_udtAddress","CHK_dString_sdLocation_udtAddress","User-Defined","[]='%Street%' OR []='%Avenue%' OR []='%Road%' OR []='%Boulevard%'","","",""
