@@ -1,6 +1,11 @@
 ### Domain Quality Control
 *Handled by Amber Garcia*
 
+Important Note:
+
+In the most recent version of FinalQualityControl, none of the data stored within the Defaults, Constraints, or Defaults have been modified unless stated otherwise to avoid bugs. There still needs to be clarity to fix contestions for validations and to add them to some domains.
+
+
 ---
 
 #### Additional Steps Taken Towards Domain Quality Control
