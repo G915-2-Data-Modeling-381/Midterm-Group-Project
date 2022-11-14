@@ -85,6 +85,24 @@ BEGIN TRY
                 from Inserted
 
 
+                insert into SystemVersioned.Employee
+                (
+                    EmployeeId,
+                    FullName,
+                    Department,
+                    Salary,
+                    Notes
+                )
+                select
+                    EmployeeId,
+                    FullName,
+                    Department,
+                    Salary,
+                    @Note
+
+                from Inserted
+
+
                 PRINT 'Row Inserted. '
 
                 ----------------------------------

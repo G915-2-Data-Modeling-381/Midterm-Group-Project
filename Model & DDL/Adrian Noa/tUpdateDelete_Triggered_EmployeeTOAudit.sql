@@ -81,6 +81,21 @@ BEGIN TRY
             SET @Note = CONCAT('Row Updated. Transaction number: ', @tnum)
             SET @DBAction = 'U'
             SET @IsDeleted = 'N'
+
+
+
+
+            UPDATE SystemVersioned.Employee SET
+                Employee.FullName = i.FullName,
+                Employee.Department = i.Department,
+                Employee.Salary = i.Salary,
+                Employee.Notes = @Note
+
+            from Inserted as i where Employee.EmployeeId = @cursorID
+
+
+
+
         END;
 
 
@@ -95,6 +110,11 @@ BEGIN TRY
             SET @Note = CONCAT('Record Deleted from database. Transaction number: ', @tnum)
             SET @DBAction = 'D'
             SET @IsDeleted = 'Y'
+
+            DELETE FROM SystemVersioned.Employee where Employee.EmployeeId = @cursorID
+
+
+
         END;
 
         SELECT @NumberOfRows = @@rowcount
@@ -127,7 +147,7 @@ BEGIN TRY
                     ,@IsDeleted
                     ,@tnum
                     -- ,1
-                    ,@DateTime2Now
+                    ,@SysEnd_as_StartTime
                     ,@DateTime2Now
                     ,@DateTime2Now
                     ,@DBAction
