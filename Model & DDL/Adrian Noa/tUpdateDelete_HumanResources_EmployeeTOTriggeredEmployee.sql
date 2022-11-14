@@ -14,15 +14,15 @@ BEGIN TRY
 
 
 
-    DECLARE TrigTempUpdate_Cursor CURSOR FOR
+    DECLARE UD_HumanResources_Employee_Cursor CURSOR FOR
 
     SELECT EmployeeId FROM Deleted
 
     DECLARE @cursorID int
 
-    OPEN TrigTempUpdate_Cursor;
+    OPEN UD_HumanResources_Employee_Cursor;
 
-    FETCH NEXT FROM TrigTempUpdate_Cursor INTO @cursorID
+    FETCH NEXT FROM UD_HumanResources_Employee_Cursor INTO @cursorID
 
     WHILE @@FETCH_STATUS = 0
 
@@ -63,14 +63,14 @@ BEGIN TRY
 
 
 
-        FETCH NEXT FROM TrigTempUpdate_Cursor INTO @cursorID
+        FETCH NEXT FROM UD_HumanResources_Employee_Cursor INTO @cursorID
 
 
     END;
 
-    CLOSE TrigTempUpdate_Cursor;
+    CLOSE UD_HumanResources_Employee_Cursor;
 
-    DEALLOCATE TrigTempUpdate_Cursor;
+    DEALLOCATE UD_HumanResources_Employee_Cursor;
 
 
 

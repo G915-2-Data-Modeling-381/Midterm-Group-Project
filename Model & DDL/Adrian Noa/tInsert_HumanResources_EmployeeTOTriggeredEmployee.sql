@@ -20,15 +20,15 @@ set xact_abort OFF;
 BEGIN TRY
 
 
-    DECLARE TriggerTemp_Insert_Cursor CURSOR FOR
+    DECLARE I_HumanResources_Employee_Cursor CURSOR FOR
 
     SELECT EmployeeId FROM Inserted
 
     DECLARE @cursorID int
 
-    OPEN TriggerTemp_Insert_Cursor;
+    OPEN I_HumanResources_Employee_Cursor;
 
-    FETCH NEXT FROM TriggerTemp_Insert_Cursor INTO @cursorID
+    FETCH NEXT FROM I_HumanResources_Employee_Cursor INTO @cursorID
 
     WHILE @@FETCH_STATUS = 0
 
@@ -88,14 +88,14 @@ BEGIN TRY
                 -------- Trigger  End ------------
                 ----------------------------------
 
-        FETCH NEXT FROM TriggerTemp_Insert_Cursor INTO @cursorID
+        FETCH NEXT FROM I_HumanResources_Employee_Cursor INTO @cursorID
 
 
     END;
 
-    CLOSE TriggerTemp_Insert_Cursor;
+    CLOSE I_HumanResources_Employee_Cursor;
 
-    DEALLOCATE TriggerTemp_Insert_Cursor;
+    DEALLOCATE I_HumanResources_Employee_Cursor;
 
 
 END TRY
