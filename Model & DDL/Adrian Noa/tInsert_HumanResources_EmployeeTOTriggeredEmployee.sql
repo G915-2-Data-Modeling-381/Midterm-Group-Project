@@ -20,8 +20,6 @@ set xact_abort OFF;
 BEGIN TRY
 
 
-
-
     DECLARE TriggerTemp_Insert_Cursor CURSOR FOR
 
     SELECT EmployeeId FROM Inserted
@@ -35,39 +33,12 @@ BEGIN TRY
     WHILE @@FETCH_STATUS = 0
 
     BEGIN
-
-        ----------------------------------
-        ----- Variable Declaration -------
-        ----------------------------------
         
-        DECLARE @DateTime2Now DATETIME2 =  SYSDATETIME();
-
-        DECLARE 
-        @DBAction CHAR(1)
-        ,@IsDeleted CHAR(1)
-        ,@Note CHAR(200)
-        ,@NumberOfRows INT
-        -- ,@nullcnt INT
-        -- ,@validcnt INT
-        -- ,@errno INT
-        -- ,@severity INT
-        -- ,@state INT
-        -- ,@errmsg VARCHAR(255);
-
         IF (EXISTS (SELECT * FROM Inserted))
-
-        BEGIN
-            SET @Note = 'Database Row Added. transaction number: 1'
-            SET @DBAction = 'I'
-            SET @IsDeleted = 'N'
-        END;
-
-        SELECT @NumberOfRows = @@rowcount
 
                 ----------------------------------
                 -------- Trigger code ------------
                 ----------------------------------
-
 
                 UPDATE 
                     [%TableOwner].[%TableName]
@@ -111,7 +82,7 @@ BEGIN TRY
                 from Inserted where EmployeeId = @cursorId
 
 
-                PRINT 'Row Inserted. TableId: ' + CONVERT(varchar(10), @cursorID) + 'at' +  CONVERT(varchar(18), @DateTime2Now)
+                PRINT 'Row Inserted. TableId: ' + CONVERT(varchar(10), @cursorID)
 
                 ----------------------------------
                 -------- Trigger  End ------------
@@ -125,15 +96,6 @@ BEGIN TRY
     CLOSE TriggerTemp_Insert_Cursor;
 
     DEALLOCATE TriggerTemp_Insert_Cursor;
-
-
-
-
-
-
-
-
-
 
 
 END TRY
