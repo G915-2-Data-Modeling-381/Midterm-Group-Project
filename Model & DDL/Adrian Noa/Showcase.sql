@@ -32,7 +32,14 @@ use Midterm;
 
 select * from HumanResources.Employee;
 
-insert into HumanResources.Employee(EmployeeFirstName, EmployeeLastName, Salary) values ('Adrian', 'Noa', '230000');
+INSERT INTO HumanResources.Employee
+(EmployeeLastName, EmployeeFirstName, EmployeeTitle, EmployeeTitleOfCourtesy, EmployeeBirthDate, EmployeeHireDate, EmployeeDepartment, EmployeeSalary, EmployeeAddress, EmployeeCity, EmployeePostalCode, EmployeePhoneNumber)
+VALUES('Noa', 'Adrian', 'Jr. Engineer', 'Mr.', '1900-01-01', '2022-8-26', 'Human Resources', 230000, '123 Street', 'Manhattan', '01200', '237-555-5555');
+
+insert into HumanResources.Employee(EmployeeFirstName, EmployeeLastName, EmployeeSalary) values ('Adrian', 'Noa', 230000);
+
+
+insert into HumanResources.Employee(EmployeeFirstName, EmployeeLastName, EmployeeSalary) values ('Adrian', 'Noa', '230000');
 
 
 update HumanResources.Employee set EmployeeFirstName = 'Adrian Miguel' where EmployeeId = 1;
@@ -41,12 +48,82 @@ select CURRENT_TIMEZONE() ;
 select sysdatetime();
 
 
+insert into Triggered.AuditTriggeredEmployeeHistory (AuditDate, DBAction, IsDeleted) values (Sysdatetime(),'I', 'N');
+
+
+
+select * from Triggered.AuditTriggeredEmployeeHistory;
+
+insert into Triggered.Employee (EmployeeId) values(222);
+
+
+SELECT * FROM Triggered.Employee;
+
+SELECT * FROM 
+
 select * from SystemVersioned.Employee;
 
 select * from Audit.VersionedEmployeeHistory;
 
 insert into SystemVersioned.Employee(EmployeeId) values (1);
 update SystemVersioned.Employee set EmployeeFullName = 'Some Name 2' where EmployeeId = 1;
+
+
+
+
+
+
+
+
+insert into Triggered.AuditTriggeredEmployeeHistory
+(
+    EmployeeId , FullName , Department , Salary , BirthDate , HireDate , PhoneNumber , FullAddress , DateAdded , DateOfLastUpdate 
+
+    ,Notes
+    ,IsDeleted
+    ,TransactionNumber
+    ,SysStartTime
+    ,SysEndTime
+    ,TimestampRowChanged
+    ,DBAction
+    ,AuditDate
+)
+values(
+
+4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+
+);
+    
+
+
+
+
+
+
+
+
+
+
+DROP TRIGGER IF EXISTS [HumanResources].[test];
+
+CREATE TRIGGER [test] ON [HumanResources].[Employee]
+    AFTER INSERT,UPDATE 
+  
+  AS
+
+  print 'updated trigger start'  
+
+
+  UPDATE 
+      [HumanResources].[Employee]
+  SET 
+      DateOfLastUpdate = SYSDATETIME()
+  FROM 
+      [HumanResources].[Employee] as c
+  INNER JOIN 
+      Inserted i 
+  ON c.EmployeeId = i.EmployeeId;
+
 --------------------------------------------
 
 
