@@ -30,43 +30,51 @@ use Midterm;
 ---------STEP 3: Look at data in target and Audit tables --------------------
 
 
-select * from HumanResources.Employee;
+
 
 INSERT INTO HumanResources.Employee
 (EmployeeLastName, EmployeeFirstName, EmployeeTitle, EmployeeTitleOfCourtesy, EmployeeBirthDate, EmployeeHireDate, EmployeeDepartment, EmployeeSalary, EmployeeAddress, EmployeeCity, EmployeePostalCode, EmployeePhoneNumber)
-VALUES('Noa', 'Adrian', 'Jr. Engineer', 'Mr.', '1900-01-01', '2022-8-26', 'Human Resources', 230000, '123 Street', 'Manhattan', '01200', '237-555-5555');
+VALUES
+('Noa', 'Adrian', 'Jr. Engineer', 'Mr.', '1996-11-11', '2022-8-26', 'Human Resources', 230000, '123 Street', 'Manhattan', '01200', '237-555-5555');
+
+update HumanResources.Employee set EmployeeFirstName = 'TESTING 1', EmployeeLastName = 'Testing 1' where EmployeeId = 1;
+
+update HumanResources.Employee set EmployeeFirstName = 'TESTING 2', EmployeeLastName = 'Testing 2' where EmployeeId = 1;
+
+DELETE FROM HumanResources.Employee WHERE EmployeeId = 1;
+
+------------------------------------------------------------------------
+
+select * from HumanResources.Employee;
+
+SELECT * FROM Triggered.Employee;
+
+select * from Triggered.AuditTriggeredEmployeeHistory;
+
+select * from SystemVersioned.Employee;
+
+select * from Audit.VersionedEmployeeHistory;
+
+------------------------------------------------------------------------
+
 
 insert into HumanResources.Employee(EmployeeFirstName, EmployeeLastName, EmployeeSalary) values ('Adrian', 'Noa', 230000);
 
 
 insert into HumanResources.Employee(EmployeeFirstName, EmployeeLastName, EmployeeSalary) values ('Adrian', 'Noa', '230000');
 
-
-update HumanResources.Employee set EmployeeFirstName = 'Adrian Miguel' where EmployeeId = 1;
--------------------------------------------
-select CURRENT_TIMEZONE() ;
-select sysdatetime();
-
-
-insert into Triggered.AuditTriggeredEmployeeHistory (AuditDate, DBAction, IsDeleted) values (Sysdatetime(),'I', 'N');
+Insert into SystemVersioned.Employee (EmployeeId, FullName) values (2, 's');
 
 
 
-select * from Triggered.AuditTriggeredEmployeeHistory;
-
-insert into Triggered.Employee (EmployeeId) values(222);
 
 
-SELECT * FROM Triggered.Employee;
-
-SELECT * FROM 
-
-select * from SystemVersioned.Employee;
-
-select * from Audit.VersionedEmployeeHistory;
 
 insert into SystemVersioned.Employee(EmployeeId) values (1);
-update SystemVersioned.Employee set EmployeeFullName = 'Some Name 2' where EmployeeId = 1;
+
+
+
+update SystemVersioned.Employee set FullName = 'Some Name 2' where EmployeeId = 2;
 
 
 
